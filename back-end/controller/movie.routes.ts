@@ -60,4 +60,37 @@ movieRouter.get('/', async (req: Request, res: Response, next: NextFunction) => 
 
 });
 
+/**
+ * @swagger
+ * /movies:
+ *   post:
+ *     summary: Add a movie
+ *     tags: [Movies]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Movie'
+ *     responses:
+ *       200:
+ *         description: The movie was successfully added.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: string
+ */
+
+movieRouter.post('/', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const movie = req.body;
+        await movieService.addMovie(movie);
+        res.status(200).json(["This movie was successfully added:", movie]);
+    } catch (error) {
+        next(error);
+    }
+});
+
 export { movieRouter };

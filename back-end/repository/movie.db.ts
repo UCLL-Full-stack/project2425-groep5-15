@@ -26,6 +26,12 @@ const movies = [
 
 const getAllMovies = (): Movie[] => movies;
 
+const addMovie = (movie: Movie): void => {
+    movies.push(movie);
+};
+
+
 export default{
     getAllMovies,
+    addMovie,
 };
