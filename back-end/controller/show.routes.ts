@@ -69,6 +69,33 @@ showRouter.get('/', async (req: Request, res: Response, next: NextFunction) => {
     }
 })
 
+/**
+ * @swagger
+ * /shows/{date}:
+ *   get:
+ *     summary: Get all shows by date
+ *     tags: [Shows]
+ *     parameters:
+ *       - in: path
+ *         name: date
+ *         schema:
+ *           type: string
+ *           format: date-time
+ *         required: true
+ *         description: The date of the shows
+ *     responses:
+ *       200:
+ *         description: A list of shows by date.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Show'
+ *       400:
+ *         description: Invalid date format
+ */
+
 
 showRouter.get('/:date', async (req: Request, res: Response, next: NextFunction) => {
     try {
