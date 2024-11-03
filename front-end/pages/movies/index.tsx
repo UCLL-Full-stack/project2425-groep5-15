@@ -21,7 +21,7 @@ const Home: React.FC = () => {
   return (
     <>
       <Head>
-        <title>Movies</title>
+        <title>Movies - Cinematic</title>
         <meta name="description" content="Movies app" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
