@@ -27,7 +27,7 @@ const Home: React.FC = () => {
 
         <div className={styles.description}>
           <p>
-            Welkom bij Cinematic! <br />Klik op films om ons aanbod te bekijken.
+            Welkom bij Cinematic! <br />Klik op movies om ons aanbod te bekijken.
           </p>
         </div>
       </main>
