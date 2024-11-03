@@ -10,19 +10,19 @@ import roomDB from "./room.db";
 const shows: Show[] = [
     new Show({
         id: 1,
-        start: new Date('2026-01-01T12:00:00'),
+        start: new Date('2024-12-01T12:00:00'),
         movie: movieDB.getAllMovies()[0],
         room: roomDB.getAllRooms()[0]
     }),
     new Show({
         id: 2,
-        start: new Date('2026-01-01T15:00:00'),
+        start: new Date('2024-12-01T15:00:00'),
         movie: movieDB.getAllMovies()[1],
         room: roomDB.getAllRooms()[1]
     }),
     new Show({
         id: 3,
-        start: new Date('2026-01-02T18:00:00'),
+        start: new Date('2024-12-02T18:00:00'),
         movie: movieDB.getAllMovies()[2],
         room: roomDB.getAllRooms()[2]
     })];
