@@ -12,7 +12,7 @@ const Header: React.FC = () => {
           Home
         </Link>
         <Link href="/films" className="nav-link px-4 fs-5 text-white">
-          Films
+          Movies
         </Link>
       </nav>
     </header>

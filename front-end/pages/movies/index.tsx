@@ -1,9 +1,9 @@
 import Head from 'next/head';
 import Header from '@components/header';
-import MoviesOverviewTable from '@components/MoviesOverviewTable';
+import MoviesOverviewTable from '@components/movies/MoviesOverviewTable';
 import { Movie } from '@types';
 import { useState, useEffect } from 'react';
-import MovieService from '@services/MovieService';
+import MovieService from '@services/movieService';
 
 const Home: React.FC = () => {
   const [movies, setMovies] = useState<Array<Movie>>([]);
