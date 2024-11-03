@@ -10,6 +10,7 @@ const MoviesOverviewTable: React.FC<Props> = ({ movies }: Props) => {
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
   const [selectedDate, setSelectedDate] = useState<string>('');
   const [filteredMovies, setFilteredMovies] = useState<Array<Movie>>(movies);
+  const [filteredShows, setFilteredShows] = useState<Array<Show>>([]);
 
   const handleRowClick = (movie: Movie) => {
     setSelectedMovie(movie === selectedMovie ? null : movie);
@@ -18,22 +19,21 @@ const MoviesOverviewTable: React.FC<Props> = ({ movies }: Props) => {
   const handleDateChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const date = event.target.value;
     setSelectedDate(date);
-    setSelectedMovie(null);
+    setSelectedMovie(null); 
     if (date) {
       try {
         const response = await MovieService.getMoviesByDate(date);
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
         const data: Show[] = await response.json();
+        setFilteredShows(data);
         const transformedMovies = data.map(show => show.movie);
         setFilteredMovies(transformedMovies);
       } catch (error) {
-        console.error('Error fetching movies by date:', error);
         setFilteredMovies([]);
+        setFilteredShows([]);
       }
     } else {
       setFilteredMovies(movies);
+      setFilteredShows([]);
     }
   };
 
@@ -47,7 +47,6 @@ const MoviesOverviewTable: React.FC<Props> = ({ movies }: Props) => {
         const data: Movie[] = await response.json();
         setFilteredMovies(data);
       } catch (error) {
-        console.error('Error fetching all movies:', error);
       }
     };
 
@@ -70,14 +69,24 @@ const MoviesOverviewTable: React.FC<Props> = ({ movies }: Props) => {
           <thead>
             <tr>
               <th scope="col">{selectedDate ? `Film(s) op ${selectedDate}` : 'Films'}</th>
+              {selectedDate && <th scope="col">Start Time</th>}
             </tr>
           </thead>
           <tbody>
-            {filteredMovies.map((movie, index) => (
-              <tr key={index} onClick={() => handleRowClick(movie)} role="button">
-                <td>{movie.title}</td>
-              </tr>
-            ))}
+            {filteredShows.length > 0 ? (
+              filteredShows.map((show, index) => (
+                <tr key={index} onClick={() => handleRowClick(show.movie)} role="button">
+                  <td>{show.movie.title}</td>
+                  <td>{new Date(show.start).toLocaleTimeString()}</td>
+                </tr>
+              ))
+            ) : (
+              filteredMovies.map((movie, index) => (
+                <tr key={index} onClick={() => handleRowClick(movie)} role="button">
+                  <td>{movie.title}</td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       ) : (
