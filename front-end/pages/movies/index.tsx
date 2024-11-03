@@ -28,9 +28,9 @@ const Home: React.FC = () => {
       </Head>
       <Header />
       <main className="d-flex flex-column justify-content-center align-items-center">
-        <h1>Welcome!</h1>
+        <h1>Discover our movies!!</h1>
+        <p>Click on a movie to see more details</p>
         <section>
-          <h2>Movies Overview</h2>
           {movies && <MoviesOverviewTable movies={movies} />}
         </section>
       </main>
