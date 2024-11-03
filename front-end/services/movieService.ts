@@ -7,8 +7,8 @@ const getAllMovies = async () => {
     });
   };
   
-  const getMovieByDate = async (movieDate: string) => {
-    return fetch(process.env.NEXT_PUBLIC_API_URL + `/movies/${movieDate}`, {
+  const getMoviesByDate = async (date: string) => {
+    return fetch(process.env.NEXT_PUBLIC_API_URL + `/shows/${date}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -18,7 +18,7 @@ const getAllMovies = async () => {
   
   const MovieService = {
     getAllMovies,
-    getMovieByDate,
+    getMoviesByDate,
   };
   
   export default MovieService;
