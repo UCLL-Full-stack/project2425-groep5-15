@@ -1,8 +1,8 @@
 export class Room {
-    private id?: number;
-    private capacity: number;
+    readonly id: number;
+    readonly capacity: number;
 
-    constructor(room: {id?: number, capacity: number}) {
+    constructor(room: {id: number, capacity: number}) {
         this.validate(room);
 
         this.id = room.id;
@@ -17,7 +17,7 @@ export class Room {
         return this.capacity;
     }
 
-    private validate(room: {capacity: number}) {
+    public validate(room: {capacity: number}) {
 
         if (!room.capacity) {
             throw new Error('The room must have a capacity');

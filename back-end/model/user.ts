@@ -1,8 +1,8 @@
 export class User {
-    private id?: number;
-    private name: string;
-    private email: string;
-    private password: string;
+    readonly id?: number;
+    readonly name: string;
+    readonly email: string;
+    readonly password: string;
 
     constructor(user: {id? : number, name: string, email: string, password: string}) {
         this.validate(user);
@@ -29,7 +29,7 @@ export class User {
         return this.password;
     }
 
-    private validate(user: {name: string, email: string, password: string}) {
+    public validate(user: {name: string, email: string, password: string}) {
         if (!user.name) {
             throw new Error('The user must have a name');
         }

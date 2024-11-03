@@ -26,8 +26,10 @@ const movies = [
 
 const getAllMovies = (): Movie[] => movies;
 
-const addMovie = (movie: Movie): void => {
+const addMovie = ({title, releaseDate, duration, genres }: Movie): Movie => {
+    const movie = new Movie({title, releaseDate, duration, genres});
     movies.push(movie);
+    return movie;
 };
 
 

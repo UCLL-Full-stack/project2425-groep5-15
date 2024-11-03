@@ -1,9 +1,9 @@
 export class Movie {
-    private id?: number;
-    private title: string;
-    private releaseDate: Date;
-    private duration: number;
-    private genres: string[];
+    readonly id?: number;
+    readonly title: string;
+    readonly releaseDate: Date;
+    readonly duration: number;
+    readonly genres: string[];
 
     constructor(movie: {id?: number, title: string, releaseDate: Date, duration: number, genres: string[]}) {
         this.validate(movie);
@@ -35,11 +35,12 @@ export class Movie {
         return this.genres;
     }
 
-    private validate(movie: {title: string, releaseDate: Date, duration: number, genres: string[]}) {
+    public validate(movie: {title: string, releaseDate: Date, duration: number, genres: string[]}) {
         
         if (!movie.title) {
             throw new Error('The movie must have a title');
         }
+        console.log(movie.title);
 
         if (!movie.releaseDate) {
             throw new Error('The movie must have a release date');

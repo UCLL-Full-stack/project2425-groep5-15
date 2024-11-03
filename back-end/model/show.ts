@@ -4,13 +4,13 @@ import {Room} from './room';
 import {User} from './user';
 
 export class Show {
-    private id?: number;
-    private startTime: string;
-    private endTime: string;
-    private date: Date;
-    private movie: Movie;
-    private room: Room;
-    private visitors: Map<User, number>
+    readonly id?: number;
+    readonly startTime: string;
+    readonly endTime: string;
+    readonly date: Date;
+    readonly movie: Movie;
+    readonly room: Room;
+    readonly visitors: Map<User, number>
 
     constructor(show: {id?: number, startTime: string, endTime: string, date: Date, movie: Movie, room: Room}) {
         this.validate(show);
@@ -65,7 +65,7 @@ export class Show {
     };
 
 
-    private validate(show: {startTime: string, endTime: string, date: Date, movie: Movie, room: Room}) {
+    public validate(show: {startTime: string, endTime: string, date: Date, movie: Movie, room: Room}) {
         if (!show.startTime) {
             throw new Error('The show must have a start time');
         }

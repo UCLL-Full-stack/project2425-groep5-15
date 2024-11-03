@@ -30,6 +30,7 @@
 
 import express, { NextFunction, Request, Response } from 'express';
 import movieService from '../service/movie.service';
+import { MovieInput } from '../types';
 
 const movieRouter = express.Router();
 
@@ -85,11 +86,12 @@ movieRouter.get('/', async (req: Request, res: Response, next: NextFunction) => 
 
 movieRouter.post('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const movie = req.body;
-        await movieService.addMovie(movie);
+        const movie = <MovieInput>req.body;
+        const result = await movieService.addMovie(movie);
         res.status(200).json(["This movie was successfully added:", movie]);
     } catch (error) {
         next(error);
+        // res.status(400).json({status:'error', errorMessage: error.message});
     }
 });
 
