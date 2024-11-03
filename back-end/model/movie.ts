@@ -40,7 +40,6 @@ export class Movie {
         if (!movie.title) {
             throw new Error('The movie must have a title');
         }
-        console.log(movie.title);
 
         if (!movie.releaseDate) {
             throw new Error('The movie must have a release date');

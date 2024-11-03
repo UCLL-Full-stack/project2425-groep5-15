@@ -70,3 +70,17 @@ showRouter.get('/', async (req: Request, res: Response, next: NextFunction) => {
 })
 
 
+showRouter.get('/:date', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const date = new Date(req.params.date);
+        const shows = await showService.getShowsByDate(date);
+        res.status(200).json(shows);
+    } catch (error) {
+        next(error);
+    }
+});
+
+
+export { showRouter };
+
+

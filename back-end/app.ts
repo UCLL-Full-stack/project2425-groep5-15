@@ -5,6 +5,7 @@ import * as bodyParser from 'body-parser';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import {movieRouter} from './controller/movie.routes';
+import {showRouter} from './controller/show.routes';
 
 
 const app = express();
@@ -37,10 +38,12 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use('/movies', movieRouter);
 
+app.use('/shows', showRouter);
+
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     console.error(err);
     res.status(400).json({
-        status: 'application error',
+        status: 'Bad Request',
         message: err.message,
     });
 });
