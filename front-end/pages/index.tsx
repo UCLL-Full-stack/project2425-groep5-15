@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Image from 'next/image';
-import styles from '@styles/Home.module.css';
+import styles from '@styles/home.module.css';
 import Header from '@components/header';
 
 const Home: React.FC = () => {
@@ -27,7 +27,7 @@ const Home: React.FC = () => {
 
         <div className={styles.description}>
           <p>
-            Welkom bij Cinematic!
+            Welkom bij Cinematic! <br />Klik op films om ons aanbod te bekijken.
           </p>
         </div>
       </main>
