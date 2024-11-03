@@ -1,24 +1,22 @@
-import { th } from 'date-fns/locale';
 import {Movie} from './movie';
 import {Room} from './room';
 import {User} from './user';
 
+
 export class Show {
     readonly id?: number;
-    readonly startTime: string;
-    readonly endTime: string;
-    readonly date: Date;
+    readonly start: Date;
+    readonly end: Date;
     readonly movie: Movie;
     readonly room: Room;
     readonly visitors: Map<User, number>
 
-    constructor(show: {id?: number, startTime: string, endTime: string, date: Date, movie: Movie, room: Room}) {
+    constructor(show: {id?: number, start: Date, movie: Movie, room: Room}) {
         this.validate(show);
 
         this.id = show.id;
-        this.startTime = show.startTime;
-        this.endTime = show.endTime;
-        this.date = show.date;
+        this.start = show.start;
+        this.end = new Date(show.start.getTime() + (show.movie.duration + 60) * 60000);
         this.movie = show.movie;
         this.room = show.room;
         this.visitors = new Map<User, number>();
@@ -28,16 +26,12 @@ export class Show {
         return this.id;
     }
 
-    public getStartTime(): string {
-        return this.startTime;
+    public getStart(): Date {
+        return this.start;
     }
 
-    public getEndTime(): string {
-        return this.endTime;
-    }
-
-    public getDate(): Date {
-        return this.date;
+    public getEnd(): Date {
+        return this.end;
     }
 
     public getMovie(): Movie {
@@ -65,18 +59,11 @@ export class Show {
     };
 
 
-    public validate(show: {startTime: string, endTime: string, date: Date, movie: Movie, room: Room}) {
-        if (!show.startTime) {
+    public validate(show: {start: Date, movie: Movie, room: Room}) {
+        if (!show.start) {
             throw new Error('The show must have a start time');
         }
 
-        if (!show.endTime) {
-            throw new Error('The show must have an end time');
-        }
-
-        if (!show.date) {
-            throw new Error('The show must have a date');
-        }
 
         if (!show.movie) {
             throw new Error('The show must have a movie');
@@ -86,12 +73,8 @@ export class Show {
             throw new Error('The show must have a room');
         }
 
-        if (show.startTime >= show.endTime) {
-            throw new Error('The start time must be before the end time');
-        }
-
-        if (show.date < new Date()) {
-            throw new Error('The date must be in the future');
+        if (show.start < new Date()) {
+            throw new Error('The start must be in the future');
         }
     }
 
