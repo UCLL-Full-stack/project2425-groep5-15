@@ -24,7 +24,7 @@ const MoviesOverviewTable: React.FC<Props> = ({ movies }: Props) => {
         const data: Movie[] = await response.json();
         setFilteredMovies(data);
       } catch (error) {
-        // Handle error silently
+  
       }
     };
 
@@ -60,6 +60,7 @@ const MoviesOverviewTable: React.FC<Props> = ({ movies }: Props) => {
                 <h2>Details for {selectedMovie.title}</h2>
                 <div>Genres: {selectedMovie.genres.join(', ')}</div>
                 <div>Release Date: {new Date(selectedMovie.releaseDate).toLocaleDateString()}</div>
+                <div>Duration: {selectedMovie.duration} minutes</div>
               </div>
             )}
           </div>

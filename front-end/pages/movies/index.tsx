@@ -1,9 +1,11 @@
+import { useState, useEffect } from 'react';
 import Head from 'next/head';
+import Link from 'next/link';
 import Header from '@components/header';
 import MoviesOverviewTable from '@components/movies/MoviesOverviewTable';
-import { Movie } from '@types';
-import { useState, useEffect } from 'react';
+import AddNewMovie from '@components/movies/AddNewMovie';
 import MovieService from '@services/movieService';
+import { Movie } from '@types';
 
 const Home: React.FC = () => {
   const [movies, setMovies] = useState<Array<Movie>>([]);
@@ -30,9 +32,15 @@ const Home: React.FC = () => {
       <main className="d-flex flex-column justify-content-center align-items-center">
         <h1>Discover our movies!</h1>
         <p>Click on a movie to see more details</p>
-        <section>
-          {movies && <MoviesOverviewTable movies={movies} />}
-        </section>
+        <Link href="/shows">Click here to buy a ticket</Link>
+        <div className="content-container">
+          <section className="movies-section">
+            {movies && <MoviesOverviewTable movies={movies} />}
+          </section>
+          <section className="form-section">
+            <AddNewMovie />
+          </section>
+        </div>
       </main>
     </>
   );
