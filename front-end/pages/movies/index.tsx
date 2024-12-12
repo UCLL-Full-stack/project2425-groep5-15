@@ -31,7 +31,7 @@ const Home: React.FC = () => {
         <h1>Discover our movies!</h1>
         <p>Click on a movie to see more details</p>
         <p>Or select a date to see the planned shows</p>
-        <p>(For testing: Er staan voorlopig enkel shows gepland op 1 en 2 dec 2024)</p>
+        <p>(For testing: Er staan voorlopig enkel shows gepland op 30 dec 2024)</p>
         <section>
           {movies && <MoviesOverviewTable movies={movies} />}
         </section>
