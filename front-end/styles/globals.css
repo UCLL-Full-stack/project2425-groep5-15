@@ -1,48 +1,124 @@
-html,
+/* Algemene stijlen */
 body {
-    padding: 0;
     margin: 0;
-    font-family: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-        Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
-        sans-serif;
-}
-
-a {
-    color: inherit;
-    text-decoration: none;
-}
-
-* {
-    box-sizing: border-box;
-}
-
-img {
-    max-width: 100%;
-    height: auto;
-}
-
-h1 {
-    color: rgb(46, 50, 117);
-    margin-bottom: 2rem !important;
-}
-
-h2 {
-    font-size: 1.25rem !important;
-}
-
-h1,
-h2,
-p,
-ul {
-    margin: 0;
-}
-
-ul {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  }
+  
+  ul {
     padding: 0;
     list-style: none;
-}
-
-button {
+  }
+  
+  button {
     padding: 0.5rem 1rem;
     font-weight: bold;
-}
+  }
+  
+  /* Movies Overview Table */
+  .movies-overview-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .table-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 300px;
+  }
+  
+  .fixed-width-table {
+    width: 100%;
+  }
+  
+  .movie-details {
+    width: 100%;
+    margin-top: 20px;
+    font-size: 16px;
+  }
+  
+  .movie-details h2 {
+    font-size: 20px;
+  }
+  
+  .selectedRow {
+    background-color: #f0f0f0;
+  }
+  
+
+  .content-container {
+    display: flex;
+    justify-content: space-between;
+    width: 60%;
+   
+    margin-top: 20px;
+  }
+  
+  .movies-section {
+    flex: 1;
+    margin-right: 20px;
+  }
+  
+  .form-section {
+    flex: 1;
+    max-width: 400px;
+  }
+  
+
+  .add-new-movie-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .add-new-movie-container h2 {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .form-group input,
+  .form-group .react-datepicker-wrapper {
+    padding: 8px;
+    font-size: 16px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .submit-button {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #f0f0f0;
+    color: black;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .submit-button:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .message {
+    margin-top: 15px;
+    font-size: 16px;
+    color: green;
+  }
