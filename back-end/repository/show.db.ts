@@ -22,7 +22,7 @@ const shows: Show[] = [
     }),
     new Show({
         id: 3,
-        start: new Date('2024-12-30T18:00:00'),
+        start: new Date('2024-12-31T18:00:00'),
         movie: movieDB.getAllMovies()[2],
         room: roomDB.getAllRooms()[2]
     })];
