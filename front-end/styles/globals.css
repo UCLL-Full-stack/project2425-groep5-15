@@ -46,3 +46,30 @@ button {
     padding: 0.5rem 1rem;
     font-weight: bold;
 }
+.movies-overview-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .table-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 300px;
+  }
+  
+  .fixed-width-table {
+    width: 100%;
+  }
+  
+  .movie-details {
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+  .selectedRow {
+    background-color: #f0f0f0; 
+  }
+
+

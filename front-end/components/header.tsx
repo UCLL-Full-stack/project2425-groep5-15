@@ -14,6 +14,12 @@ const Header: React.FC = () => {
         <Link href="/movies" className="nav-link px-4 fs-5 text-white">
           Movies
         </Link>
+        <Link href="/shows" className="nav-link px-4 fs-5 text-white">
+          Shows
+        </Link>
+        <Link href="/login" className="nav-link px-4 fs-5 text-white">
+          Login
+        </Link>
       </nav>
     </header>
   );
