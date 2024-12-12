@@ -26,7 +26,7 @@ test('given a database with shows when getAllShows then return all shows',() => 
 });
 
 test('given a database with shows when getShowsByDate then return shows with that date are returned',() => {
-    const getShowsByDate = showService.getShowsByDate(new Date('2024-12-25'));
+    const getShowsByDate = showService.getShowsByDate(new Date('2024-12-30'));
 
 
     expect(mockShowDBGetsAllShows).toHaveBeenCalledTimes(1);
