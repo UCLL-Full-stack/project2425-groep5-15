@@ -38,6 +38,8 @@ const movieRouter = express.Router();
  * @swagger
  * /movies:
  *   get:
+ *     security:
+ *      - bearerAuth: []
  *     summary: Get all movies
  *     tags: [Movies]
  *     responses:
@@ -65,6 +67,8 @@ movieRouter.get('/', async (req: Request, res: Response, next: NextFunction) => 
  * @swagger
  * /movies:
  *   post:
+ *     security:
+ *      - bearerAuth: []
  *     summary: Add a movie
  *     tags: [Movies]
  *     requestBody:

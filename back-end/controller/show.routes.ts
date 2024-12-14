@@ -47,6 +47,8 @@ const showRouter = express.Router();
  * @swagger
  * /shows:
  *   get:
+ *     security:
+ *      - bearerAuth: []
  *     summary: Get all shows
  *     tags: [Shows]
  *     responses:
@@ -73,6 +75,8 @@ showRouter.get('/', async (req: Request, res: Response, next: NextFunction) => {
  * @swagger
  * /shows/{date}:
  *   get:
+ *     security:
+ *      - bearerAuth: []
  *     summary: Get all shows by date
  *     tags: [Shows]
  *     parameters:
