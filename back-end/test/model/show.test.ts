@@ -35,7 +35,7 @@ test('given valid values, when creating a show, then it creates a show with thos
 
     expect(show.getId()).toEqual(1);
     expect(show.getStart()).toEqual(new Date('2026-01-01T12:00:00'));
-    expect(show.getEnd()).toEqual(new Date('2026-01-01T15:22:00'));
+    expect(show.getEnd()).toEqual(new Date('2026-01-01T14:22:00'));
     expect(show.getMovie()).toEqual(movie);
     expect(show.getRoom()).toEqual(room);
     expect(show.getVisitors()).toEqual(new Map<User, number>());

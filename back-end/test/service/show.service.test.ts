@@ -4,7 +4,7 @@ import showService from "../../service/show.service";
 import showDB from "../../repository/show.db";
 import e from "express";
 
-let mockShowDBGetsAllShows: jest.SpyInstance<Show[], [],any>
+let mockShowDBGetsAllShows: jest.SpyInstance<Promise<Show[]>, []>
 
 
 beforeEach(() => {
@@ -25,8 +25,8 @@ test('given a database with shows when getAllShows then return all shows',() => 
 
 });
 
-test('given a database with shows when getShowsByDate then return shows with that date are returned',() => {
-    const getShowsByDate = showService.getShowsByDate(new Date('2024-12-30'));
+test('given a database with shows when getShowsByDate then return shows with that date are returned', async () => {
+    const getShowsByDate = await showService.getShowsByDate(new Date('2024-12-30'));
 
 
     expect(mockShowDBGetsAllShows).toHaveBeenCalledTimes(1);

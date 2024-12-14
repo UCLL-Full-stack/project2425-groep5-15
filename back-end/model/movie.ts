@@ -1,3 +1,6 @@
+import { Movie as MoviePrisma } from '@prisma/client';
+
+
 export class Movie {
     readonly id?: number;
     readonly title: string;
@@ -55,6 +58,10 @@ export class Movie {
         if (movie.genres.length === 0) {
             throw new Error('The movie must have genres');
         }
+    }
+
+    static from({id, title, releaseDate, duration, genres}: MoviePrisma) {
+        return new Movie({id, title, releaseDate, duration, genres});
     }
 
     

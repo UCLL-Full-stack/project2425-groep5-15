@@ -4,33 +4,22 @@ import {Room} from "../model/room";
 import {User} from "../model/user";
 import movieDB from "./movie.db";
 import roomDB from "./room.db";
+import database from "../util/database";
 
 
 
-const shows: Show[] = [
-    new Show({
-        id: 1,
-        start: new Date('2024-12-30T12:00:00'),
-        movie: movieDB.getAllMovies()[0],
-        room: roomDB.getAllRooms()[0]
-    }),
-    new Show({
-        id: 2,
-        start: new Date('2024-12-30T15:00:00'),
-        movie: movieDB.getAllMovies()[1],
-        room: roomDB.getAllRooms()[1]
-    }),
-    new Show({
-        id: 3,
-        start: new Date('2024-12-31T18:00:00'),
-        movie: movieDB.getAllMovies()[2],
-        room: roomDB.getAllRooms()[2]
-    })];
 
-
-const getAllShows = (): Show[] => {
-    return shows;
-};
+const getAllShows = async (): Promise<Show[]> => {
+    const showPrisma = await database.show.findMany({
+      include: {
+        movie: true,
+        room: true,
+      },
+    });
+  
+    return showPrisma.map((showPrisma) => Show.from(showPrisma));
+  };
+  
 
 
 export default {

@@ -1,3 +1,5 @@
+import { Room as RoomPrisma } from '@prisma/client';
+
 export class Room {
     readonly id: number;
     readonly capacity: number;
@@ -24,6 +26,10 @@ export class Room {
         }
 
 
+    }
+
+    static from({id, capacity}: RoomPrisma) {
+        return new Room({id, capacity});
     }
 
 

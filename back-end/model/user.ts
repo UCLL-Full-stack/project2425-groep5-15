@@ -1,3 +1,6 @@
+import { User as UserPrisma } from '@prisma/client';
+
+
 export class User {
     readonly id?: number;
     readonly name: string;
@@ -52,6 +55,10 @@ export class User {
         }
 
 
+    }
+
+    static from({id, name, email, password}: UserPrisma) {
+        return new User({id, name, email, password});
     }
 }
 

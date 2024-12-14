@@ -1,39 +1,49 @@
+import { th } from 'date-fns/locale';
 import {Movie} from '../model/movie';
+import database from '../util/database';
 
-const movies = [
-    new Movie({
-        id: 1,
-        title: "Inception",
-        releaseDate: new Date("2010-07-16"),
-        duration: 148,
-        genres: ["Action", "Sci-Fi", "Thriller"]
-    }),
-    new Movie({
-        id: 2,
-        title: "The Matrix",
-        releaseDate: new Date("1999-03-31"),
-        duration: 136,
-        genres: ["Action", "Sci-Fi"]
-    }),
-    new Movie({
-        id: 3,
-        title: "Interstellar",
-        releaseDate: new Date("2014-11-07"),
-        duration: 169,
-        genres: ["Adventure", "Drama", "Sci-Fi"]
-    })
-];
+const getAllMovies = async (): Promise<Movie[]> => {
+    const moviePrisma = await database.movie.findMany();
+    return moviePrisma.map((moviePrisma) => Movie.from(moviePrisma));
+}
 
-const getAllMovies = (): Movie[] => movies;
+const getMovieByTitle = async (title: string): Promise<Movie | null> => {
+    try {
+        const moviePrisma = await database.movie.findFirst({
+            where: {
+                title: title
+            }
+        });
+        return moviePrisma ? Movie.from(moviePrisma) : null;
+    }
+    catch (error) {
+        console.error(error);
+        throw new Error('Database error. See server log for details.');
 
-const addMovie = ({title, releaseDate, duration, genres }: Movie): Movie => {
-    const movie = new Movie({title, releaseDate, duration, genres});
-    movies.push(movie);
-    return movie;
+    }
+}
+
+
+const addMovie = async ({title, releaseDate, duration, genres }: Movie): Promise<Movie> => {
+    try {
+        const moviePrisma = await database.movie.create({
+            data: {
+                title: title,
+                releaseDate: releaseDate,
+                duration: duration,
+                genres: genres
+            }
+        })
+        return Movie.from(moviePrisma);
+    }
+    catch (error) {
+        console.error(error);
+        throw new Error('Database error. See server log for details.');
+    }
 };
-
 
 export default{
     getAllMovies,
+    getMovieByTitle,
     addMovie,
 };

@@ -1,3 +1,8 @@
+import {
+    Show as showPrisma, 
+    Movie as MoviePrisma, 
+    Room as RoomPrisma} from '@prisma/client';
+
 import {Movie} from './movie';
 import {Room} from './room';
 import {User} from './user';
@@ -16,7 +21,7 @@ export class Show {
 
         this.id = show.id;
         this.start = show.start;
-        this.end = new Date(show.start.getTime() + (show.movie.duration + 60) * 60000);
+        this.end = new Date(show.start.getTime() + (show.movie.duration) * 60000)
         this.movie = show.movie;
         this.room = show.room;
         this.visitors = new Map<User, number>();
@@ -88,6 +93,12 @@ export class Show {
             this.visitors.set(user, currentValue + seats);
         } else { this.visitors.set(user, seats)}
     }
+
+    static from({id, start, movie, room}: showPrisma & {movie: MoviePrisma; room: RoomPrisma}) {
+        return new Show({id, start, movie: Movie.from(movie), room: Room.from(room)});
+    }
+    
+    
 
     
 }
