@@ -7,11 +7,12 @@ const getAllMovies = async (): Promise<Movie[]> => {
     return moviePrisma.map((moviePrisma) => Movie.from(moviePrisma));
 }
 
-const getMovieByTitle = async (title: string): Promise<Movie | null> => {
+const getMovieByTitleAndReleaseDate = async (title: string, releaseDate: Date): Promise<Movie | null> => {
     try {
         const moviePrisma = await database.movie.findFirst({
             where: {
-                title: title
+                title: title,
+                releaseDate: releaseDate
             }
         });
         return moviePrisma ? Movie.from(moviePrisma) : null;
@@ -44,6 +45,6 @@ const addMovie = async ({title, releaseDate, duration, genres }: Movie): Promise
 
 export default{
     getAllMovies,
-    getMovieByTitle,
+    getMovieByTitleAndReleaseDate,
     addMovie,
 };

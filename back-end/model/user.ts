@@ -3,15 +3,19 @@ import { User as UserPrisma } from '@prisma/client';
 
 export class User {
     readonly id?: number;
-    readonly name: string;
+    readonly firstName: string;
+    readonly lastName: string;
+    readonly username: string;
     readonly email: string;
     readonly password: string;
 
-    constructor(user: {id? : number, name: string, email: string, password: string}) {
+    constructor(user: {id? : number, firstName: string, lastName: string, username: string, email: string, password: string}) {
         this.validate(user);
 
         this.id  = user.id;
-        this.name = user.name;
+        this.firstName = user.firstName;
+        this.lastName = user.lastName;
+        this.username = user.username;
         this.email = user.email;
         this.password = user.password;
     }
@@ -20,20 +24,37 @@ export class User {
         return this.id;
     }
 
-    public getname(): string {
-        return this.name;
+    public getFirstName(): string {
+        return this.firstName;
+    }
+
+    public getLastName(): string {
+        return this.lastName;
+    }
+
+    public getUsername(): string {
+        return this.username;
     }
 
     public getEmail(): string {
         return this.email;
     }
 
-    public getpassword(): string {
+    public getPassword(): string {
         return this.password;
     }
 
-    public validate(user: {name: string, email: string, password: string}) {
-        if (!user.name) {
+    public validate(user: { firstName: string, lastName: string, username: string, email: string, password: string}) {
+
+        if (!user.firstName) {
+            throw new Error('The user must have a first name');
+        }
+
+        if (!user.lastName) {
+            throw new Error('The user must have a last name');
+        }
+
+        if (!user.username) {
             throw new Error('The user must have a name');
         }
 
@@ -57,8 +78,8 @@ export class User {
 
     }
 
-    static from({id, name, email, password}: UserPrisma) {
-        return new User({id, name, email, password});
+    static from({id, firstName, lastName, username, email, password}: UserPrisma) {
+        return new User({id, firstName, lastName, username, email, password});
     }
 }
 

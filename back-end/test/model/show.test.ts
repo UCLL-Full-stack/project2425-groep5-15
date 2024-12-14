@@ -20,7 +20,9 @@ const room = new Room({
 
 const user = new User({
     id: 1,
-    name: 'myusername',
+    firstName: 'myfirstname',
+    lastName: 'mylastname',
+    username: 'myusername',
     email: 'myemail@gmail.com',
     password: 'mypassword'
 });
