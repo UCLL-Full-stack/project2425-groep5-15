@@ -14,7 +14,7 @@ const getAllUsers = async (): Promise<User[]> => {
     }
 }
 
-const createUser = async ({firstName, lastName, username, email, password }: User): Promise<User> => {
+const createUser = async ({firstName, lastName, username, email, password, role }: User): Promise<User> => {
     try {
         const userPrisma = await database.user.create({
             data: {
@@ -22,7 +22,8 @@ const createUser = async ({firstName, lastName, username, email, password }: Use
                 lastName,
                 username,
                 email,
-                password
+                password,
+                role
             }
         });
         return User.from(userPrisma);

@@ -16,7 +16,7 @@ export class Show {
     readonly room: Room;
     readonly visitors: Map<User, number>
 
-    constructor(show: {id?: number, start: Date, movie: Movie, room: Room}) {
+    constructor(show: {id?: number, start: Date, movie: Movie, room: Room, visitors?: Map<User, number>}) {
         this.validate(show);
 
         this.id = show.id;
@@ -24,7 +24,11 @@ export class Show {
         this.end = new Date(show.start.getTime() + (show.movie.duration) * 60000)
         this.movie = show.movie;
         this.room = show.room;
-        this.visitors = new Map<User, number>();
+        if (show.visitors) {
+            this.visitors = show.visitors;
+        } else {
+            this.visitors = new Map<User, number>();
+        }
     }
 
     public getId(): number | undefined {

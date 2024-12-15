@@ -24,7 +24,8 @@ const user = new User({
     lastName: 'mylastname',
     username: 'myusername',
     email: 'myemail@gmail.com',
-    password: 'mypassword'
+    password: 'mypassword',
+    role: 'user'
 });
 
 test('given valid values, when creating a show, then it creates a show with those values', () => {
