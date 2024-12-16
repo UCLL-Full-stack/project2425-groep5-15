@@ -18,3 +18,9 @@ export type Room = {
     name: string;
     seats: number;
 }   
+
+
+export type StatusMessage = {
+    message: string;
+    type: "error" | "success";
+};
