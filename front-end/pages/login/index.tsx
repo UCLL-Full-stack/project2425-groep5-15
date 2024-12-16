@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Header from "@components/header";
 import UserLoginForm from "@components/users/UserLoginForm";
+import UserTable from "@components/users/UserTable";
 
 const Login: React.FC = () => {
     return (
@@ -12,6 +13,9 @@ const Login: React.FC = () => {
             <main>
                 <section className="p-6 min-h-screen flex flex-col items-center">
                     <UserLoginForm />
+                </section>
+                <section>
+                    <UserTable />
                 </section>
             </main>
         </>
