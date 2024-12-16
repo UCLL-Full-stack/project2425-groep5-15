@@ -24,3 +24,13 @@ export type StatusMessage = {
     message: string;
     type: "error" | "success";
 };
+
+export type User = {
+    token?: any;
+    firstName?: string;
+    lastName?: string;
+    username?: string;
+    email?: string;
+    password?: string;
+    role?: string;
+};
