@@ -1,94 +1,79 @@
-import { StatusMessage } from "@types";
-import classNames from "classnames";
-import { useRouter } from "next/router";
-import { useState } from "react";
+import React, { useState } from 'react';
 
 const UserLoginForm: React.FC = () => {
-  const router = useRouter();
-  const [name, setName] = useState("");
-  const [nameError, setNameError] = useState<string | null>(null);
-  const [statusMessages, setStatusMessages] = useState<StatusMessage[]>([]);
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [errors, setErrors] = useState<string[]>([]);
+  const [status, setStatus] = useState<string>('');
 
- 
-
-  const clearErrors = () => {
-    setNameError(null);
-    setStatusMessages([]);
-  };
-
-  const validate = (): boolean => {
+  const validate = () => {
     let result = true;
+    setErrors([]);
 
-    if (!name && name.trim() === "") {
-      setNameError("Name is required.");
+    if (!email) {
+      setErrors((errors) => [...errors, 'Email is required.']);
       result = false;
-    } else {
-      setNameError(null);
     }
-
+    if (!password) {
+      setErrors((errors) => [...errors, 'Password is required.']);
+      result = false;
+    }
     return result;
   };
 
-  const handelSubmit = async (event) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    clearErrors();
-    if(!validate()) {
+    if (!validate()) {
       return;
-    } 
+    }
 
-    setStatusMessages([{message: `Welcome, ${name}! Redirecting to home...`, type: "success"}]);
-
-    sessionStorage.setItem("loggedInUser", name);
-    setTimeout(() => {
-      router.push("/");
-    }, 2000);
+    // Simulate login process
+    try {
+      // Replace with actual login logic
+      setStatus('Login successful!');
+      setEmail('');
+      setPassword('');
+    } catch (error) {
+      setErrors((errors) => [...errors, 'Failed to login.']);
+    }
   };
 
   return (
-    <>
-      <h3 className="px-0">Login</h3>
-      {statusMessages && (
-        <div className="row">
-          <ul className="list-none mb-3 mx-auto ">
-            {statusMessages.map(({ message, type }, index) => (
-              <li
-                key={index}
-                className={classNames({
-                  "text-red-800": type === "error",
-                  "text-green-800": type === "success",
-                })}
-              >
-                {message}
-              </li>
+    <div className="add-new-movie-container">
+      <h2>Login</h2>
+      <form onSubmit={handleSubmit} className="form">
+        <div className="form-group">
+          <label htmlFor="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+        <button type="submit" className="submit-button">Login</button>
+        {status && <p className="message">{status}</p>}
+        {!!errors.length && (
+          <ul className="text-red-800 rounded-lg" role="alert">
+            {errors.map((error, index) => (
+              <li key={index}>{error}</li>
             ))}
           </ul>
-        </div>
-      )}
-      <form onSubmit={handelSubmit}>
-        <label htmlFor="nameInput" className="block mb-2 text-sm font-medium">
-          Username:
-        </label>
-        <div className="block mb-2 text-sm font-medium">
-          <input
-            id="nameInput"
-            type="text"
-            value={name}
-            onChange={(event) => setName(event.target.value)}
-            className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue:500 block w-full p-2.5"
-          />
-          {nameError && <p className="text-red-800">{nameError}</p>}
-        </div>
-
-        <button
-          className="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-          type="submit"
-        >
-          Login
-        </button>
+        )}
       </form>
-      { <p id="test-tag">name: {name}</p> }
-    </>
+    </div>
   );
 };
 
