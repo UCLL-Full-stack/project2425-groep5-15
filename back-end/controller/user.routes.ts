@@ -33,6 +33,7 @@ import { UserInput } from '../types';
  *         - username
  *         - email
  *         - password
+ *         - role
  *       example:
  *         id: 1
  *         firstName: 'John'
@@ -40,6 +41,7 @@ import { UserInput } from '../types';
  *         username: 'johndoe'
  *         email: 'johndoe@example.com'
  *         password: 'password123'
+ *         role: 'user'
  */
 
 

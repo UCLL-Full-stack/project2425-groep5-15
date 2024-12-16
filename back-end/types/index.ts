@@ -13,6 +13,7 @@ type UserInput = {
     username: string;
     email: string;
     password: string;
+    role: Role;
 }
 
 type Genre= 'Action' | 'Adventure' | 'Animation' | 'Biography' | 'Comedy' | 'Crime' | 'Drama' | 'Family' | 'Fantasy' | 'History' | 'Horror' | 'Music' | 'Mystery' | 'Romance' | 'Sci-Fi' | 'Sport' | 'Thriller' | 'War' | 'Western';
@@ -23,9 +24,12 @@ type AuthenticationResponse = {
     fullname: string;
 }
 
+type Role = 'admin' | 'user' | 'worker';
+
 export {
     MovieInput,
     Genre,
     UserInput,
     AuthenticationResponse,
+    Role,
 }

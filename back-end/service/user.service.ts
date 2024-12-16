@@ -20,7 +20,7 @@ const getUserByUsername = async (username: string): Promise<User> => {
 };
 
 
-const createUser = async ({firstName, lastName, username, email, password }: UserInput): Promise<User> => {
+const createUser = async ({firstName, lastName, username, email, password, role }: UserInput): Promise<User> => {
     
     if (await userDB.getUserByEmail(email)) {
         throw new Error('This email is already in use');
@@ -31,7 +31,7 @@ const createUser = async ({firstName, lastName, username, email, password }: Use
     }
 
     const hashedpassword = await bcrypt.hash(password, 12);
-    const user = new User({firstName, lastName, username, email, password: hashedpassword});
+    const user = new User({firstName, lastName, username, email, password: hashedpassword, role});
     return userDB.createUser(user);
 };
 
@@ -45,7 +45,7 @@ const authenticate = async ({username, password}: UserInput): Promise<Authentica
     }
 
     return {
-        token: generateJwtToken({username}),
+        token: generateJwtToken({username, role: user.role}),
         username: user.username,
         fullname: `${user.firstName} ${user.lastName}`,
     };
