@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Header from "@components/header";
+import Header from "@components/headerNoL";
 import UserLoginForm from "@components/users/UserLoginForm";
 import UserTable from "@components/users/UserTable";
 

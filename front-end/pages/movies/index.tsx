@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import Header from '@components/header';
+import Header from '@components/headerNoL';
 import MoviesOverviewTable from '@components/movies/MoviesOverviewTable';
 import AddNewMovie from '@components/movies/AddNewMovie';
 import MovieService from '@services/movieService';

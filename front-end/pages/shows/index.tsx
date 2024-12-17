@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import Header from '@components/header';
+import Header from '@components/headerNoL';
 import MoviesOverviewTable from '@components/movies/MoviesOverviewTable';
 import { Movie } from '@types';
 import { useState, useEffect } from 'react';
