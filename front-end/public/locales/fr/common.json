@@ -1,0 +1,19 @@
+{
+    "app.title": "Cinématique",
+    "home": {
+        "title": "Cinématique",
+        "description": "Application de cinéma",
+        "viewport": "width=device-width, initial-scale=1",
+        "header": "Bienvenue!",
+        "subheader": "Bienvenue à Cinématique! Cliquez sur Films pour voir notre sélection.",
+        "link": "Cliquez ici pour acheter un billet"
+    },
+    "header": {
+        "home": "Accueil",
+        "movies": "Films",
+        "shows": "Spectacles",
+        "login": "Connexion",
+        "logout": "Déconnexion",
+        "welcome": "Bienvenue, "
+    }
+}

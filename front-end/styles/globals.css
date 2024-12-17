@@ -14,6 +14,37 @@ button {
   font-weight: bold;
 }
 
+/* Header */
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-link {
+  padding: 0.5rem 1rem;
+  font-size: 1.25rem;
+  color: white;
+  text-decoration: none;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+}
+
+/* Language Component */
+.language {
+  display: flex;
+  align-items: center;
+  margin-left: 1rem;
+}
+
 /* Movies Overview Table */
 .movies-overview-container {
   display: flex;
