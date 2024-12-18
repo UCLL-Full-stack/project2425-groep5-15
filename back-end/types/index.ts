@@ -1,3 +1,6 @@
+import { Show } from "../model/show";
+import User from "../model/user";
+
 type MovieInput = {
     id?: number;
     title: string;
@@ -24,7 +27,8 @@ type AuthenticationResponse = {
     fullname: string;
 }
 
-type Role = 'admin' | 'user' | 'worker';
+type Role = 'admin' | 'planner' | 'client';
+
 
 export {
     MovieInput,

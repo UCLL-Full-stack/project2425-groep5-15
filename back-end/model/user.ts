@@ -1,4 +1,9 @@
-import { User as UserPrisma } from '@prisma/client';
+import { 
+    User as UserPrisma,
+    Show as ShowPrisma,
+    Movie as MoviePrisma,
+    Room as RoomPrisma
+} from '@prisma/client';
 import { Role } from '../types';
 import Show from './show';
 
@@ -10,10 +15,10 @@ export class User {
     readonly username: string;
     readonly email: string;
     readonly password: string;
-    readonly role: Role
-    readonly tickets: Map<Show, number>
+    readonly role: Role;
+    readonly tickets: Show[];
 
-    constructor(user: {id? : number, firstName: string, lastName: string, username: string, email: string, password: string, role: Role, tickets?: Map<Show, number>}) {
+    constructor(user: {id? : number, firstName: string, lastName: string, username: string, email: string, password: string, role: Role, tickets?: Show[]}) {
         this.validate(user);
 
         this.id  = user.id;
@@ -26,7 +31,7 @@ export class User {
         if (user.tickets) {
             this.tickets = user.tickets;
         } else {
-            this.tickets = new Map<Show, number>();
+            this.tickets = [];
         }
     }
 
@@ -59,22 +64,17 @@ export class User {
         return this.role;
     }
 
-    public getTickets(): Map<Show, number> {
+    public getTickets(): Show[] {
         return this.tickets;
     }
 
-    public addTickets(show: Show, seats: number) {
-        if (seats <= 0) {
-            throw new Error('The number of seats must be greater than 0');
-        }
-
-        if (this.tickets.has(show)) {
-            const currentValue = this.tickets.get(show) || 0;
-            this.tickets.set(show, currentValue + seats);
-        } else {
-            this.tickets.set(show, seats);
+    public addTickets(ticket: Show, quantity: number) {
+        for (let i = 0; i < quantity; i++) {
+            this.tickets.push(ticket);
         }
     }
+
+
 
     public validate(user: { firstName: string, lastName: string, username: string, email: string, password: string, role: Role}) {
 
@@ -114,10 +114,11 @@ export class User {
 
 
     }
+    static from({id, firstName, lastName, username, email, password, role, tickets}: UserPrisma & {tickets?: ({id: number; start: Date; end: Date; movieId: number; roomId: number; movie: MoviePrisma; room: RoomPrisma}[])}) {
+        return new User({id, firstName, lastName, username, email, password, role: role as Role, tickets: tickets ? tickets.map(ticket => Show.from(ticket)) : []});
 
-    static from({id, firstName, lastName, username, email, password, role}: UserPrisma) {
-        return new User({id, firstName, lastName, username, email, password, role: role as Role});
     }
+
 }
 
 export default User;

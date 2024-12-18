@@ -15,6 +15,7 @@ const getAllShows = async (): Promise<Show[]> => {
       include: {
         movie: true,
         room: true,
+        
       },
     });
     return showPrisma.map((showPrisma) => Show.from(showPrisma));

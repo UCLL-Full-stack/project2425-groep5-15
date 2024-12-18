@@ -1,12 +1,11 @@
 import {
-    Show as showPrisma, 
+    Show as ShowPrisma, 
     Movie as MoviePrisma, 
-    Room as RoomPrisma} from '@prisma/client';
+    Room as RoomPrisma,} from '@prisma/client';
 
 import {Movie} from './movie';
 import {Room} from './room';
 import {User} from './user';
-
 
 export class Show {
     readonly id?: number;
@@ -14,21 +13,23 @@ export class Show {
     readonly end: Date;
     readonly movie: Movie;
     readonly room: Room;
-    readonly visitors: Map<User, number>
+    private availableSeats: number;
 
-    constructor(show: {id?: number, start: Date, movie: Movie, room: Room, visitors?: Map<User, number>}) {
+    constructor(show: {id?: number, start: Date, end?: Date, movie: Movie, room: Room, availableSeats?: number}) {
         this.validate(show);
 
         this.id = show.id;
         this.start = show.start;
-        this.end = new Date(show.start.getTime() + (show.movie.duration) * 60000)
+        if (show.end) {
+            this.end = show.end;
+        } else {this.end = new Date(show.start.getTime() + (show.movie.duration) * 60000)}
+        
         this.movie = show.movie;
         this.room = show.room;
-        if (show.visitors) {
-            this.visitors = show.visitors;
-        } else {
-            this.visitors = new Map<User, number>();
-        }
+        if (show.availableSeats) {
+            this.availableSeats = show.availableSeats;
+        } else {this.availableSeats = show.room.capacity}
+    
     }
 
     public getId(): number | undefined {
@@ -51,21 +52,20 @@ export class Show {
         return this.room;
     }
 
-    public getVisitors(): Map<User, number> {
-        return this.visitors;
+    public getAvailableSeats(): number {
+        return this.availableSeats;
     }
 
-    public getVisitorsTotal(): number {
-        let total = 0;
-        this.visitors.forEach((value) => {
-            total += value;
-        });
-        return total;
+    public reserveSeats(seats: number) {
+        if (seats > this.availableSeats) {
+            throw new Error('Not enough available seats');
+        }
+
+        this.availableSeats -= seats;
     }
 
-    public getRemainingSeats(): number {
-        return this.room.getcapacity() - this.getVisitorsTotal();
-    };
+
+
 
 
     public validate(show: {start: Date, movie: Movie, room: Room}) {
@@ -87,23 +87,9 @@ export class Show {
         }
     }
 
-    public addVisitor(user: User, seats: number) {
-        if (seats <= 0) {
-            throw new Error('The number of seats must be greater than 0');
-        }
-
-        if (this.visitors.has(user)) {
-            const currentValue = this.visitors.get(user) || 0;
-            this.visitors.set(user, currentValue + seats);
-        } else { this.visitors.set(user, seats)}
+    static from({id, start, end, movie, room}: ShowPrisma & {movie: MoviePrisma; room: RoomPrisma}) {
+        return new Show({id, start, end, movie: Movie.from(movie), room: Room.from(room)});
     }
-
-    static from({id, start, movie, room}: showPrisma & {movie: MoviePrisma; room: RoomPrisma}) {
-        return new Show({id, start, movie: Movie.from(movie), room: Room.from(room)});
-    }
-    
-    
-
     
 }
 

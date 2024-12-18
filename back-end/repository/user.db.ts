@@ -1,11 +1,15 @@
 import e from 'express';
 import {User} from '../model/user';
 import database from '../util/database';
+import showDb from './show.db';
+
 
 
 const getAllUsers = async (): Promise<User[]> => {
     try {
-        const userPrisma = await database.user.findMany();
+        const userPrisma = await database.user.findMany(
+            
+        );
         return userPrisma.map((userPrisma) => User.from(userPrisma));
     }
     catch (error) {
@@ -39,7 +43,7 @@ const getUserByEmail = async (email: string): Promise<User | null> => {
         const userPrisma = await database.user.findFirst({
             where: {
                 email: email
-            }
+            },
         });
         return userPrisma ? User.from(userPrisma) : null;
     }
@@ -54,6 +58,14 @@ const getUserByUsername = async (username: string): Promise<User | null> => {
         const userPrisma = await database.user.findFirst({
             where: {
                 username: username
+            },
+            include: {
+                tickets: { 
+                    include: {
+                        movie: true,
+                        room: true
+                    }
+                }
             }
         });
         return userPrisma ? User.from(userPrisma) : null;
@@ -63,6 +75,7 @@ const getUserByUsername = async (username: string): Promise<User | null> => {
         throw new Error('Database error. See server log for details.');
     }
 }
+
 
 export default {
     getAllUsers,

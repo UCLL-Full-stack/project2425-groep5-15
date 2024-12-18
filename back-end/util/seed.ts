@@ -7,7 +7,6 @@ import { set } from 'date-fns';
 const prisma = new PrismaClient();
 
 const main = async () => {
-    await prisma.ticket.deleteMany();
     await prisma.show.deleteMany();
     await prisma.movie.deleteMany();
     await prisma.room.deleteMany();
@@ -107,6 +106,10 @@ const main = async () => {
         }
     })
 
+    
+
+
+
     const clientUser = await prisma.user.create({
         data: {
             firstName: "Client",
@@ -140,17 +143,7 @@ const main = async () => {
         }
     })
 
-    const ticket1 = await prisma.ticket.create({
-        data: {
-            user: {
-                connect: {id: testUser.id}
-            },
-            show: {
-                connect: {id: show1.id}
-            },
-            amount: 3
-        }
-    })
+    
 
 
 

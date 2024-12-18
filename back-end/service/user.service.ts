@@ -3,6 +3,7 @@ import userDB from '../repository/user.db';
 import {AuthenticationResponse, UserInput} from '../types';
 import bcrypt from 'bcrypt';
 import { generateJwtToken } from '../util/jwt';
+import { get } from 'node:http';
 
 
 const getAllUsers = async (): Promise<User[]> => await userDB.getAllUsers();
@@ -51,6 +52,9 @@ const authenticate = async ({username, password}: UserInput): Promise<Authentica
     };
 
 }
+
+
+
 
 export default {
     getAllUsers,
