@@ -2,14 +2,18 @@ import Head from 'next/head';
 import Image from 'next/image';
 import styles from '@styles/home.module.css';
 import Header from '@components/header';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 const Home: React.FC = () => {
+  const { t } = useTranslation('common');
+
   return (
     <>
       <Head>
-        <title>Cinematic</title>
-        <meta name="description" content="Courses app" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>{t('home.title')}</title>
+        <meta name="description" content={t('home.description')} />
+        <meta name="viewport" content={t('home.viewport')} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
@@ -22,17 +26,25 @@ const Home: React.FC = () => {
             width={100}
             height={100}
           />
-          <h1>Welcome!</h1>
+          <h1>{t('home.header')}</h1>
         </span>
 
         <div className={styles.description}>
           <p>
-            Welkom bij Cinematic! <br />Klik op movies om ons aanbod te bekijken.
+            {t('home.subheader')}
           </p>
         </div>
       </main>
     </>
   );
+};
+
+export const getServerSideProps = async ({ locale }: { locale: string }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common'])),
+    },
+  };
 };
 
 export default Home;

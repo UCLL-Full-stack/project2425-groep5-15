@@ -1,0 +1,19 @@
+{
+    "app.title": "Cinematic",
+    "home": {
+        "title": "Cinematic",
+        "description": "Cinema app",
+        "viewport": "width=device-width, initial-scale=1",
+        "header": "Welcome!",
+        "subheader": "Welcome to Cinematic! Click on Movies to view our selection.",
+        "link": "Click here to buy a ticket"
+    },
+    "header": {
+        "home": "Home",
+        "movies": "Movies",
+        "shows": "Shows",
+        "login": "Login",
+        "logout": "Logout",
+        "welcome": "Welcome, "
+    }
+}

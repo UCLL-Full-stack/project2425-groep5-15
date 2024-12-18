@@ -25,10 +25,10 @@ type AuthenticationResponse = {
     token: string;
     username: string;
     fullname: string;
+    role: string;
 }
 
-type Role = 'admin' | 'planner' | 'client';
-
+type Role = 'admin' | 'client' | 'planner';
 
 export {
     MovieInput,

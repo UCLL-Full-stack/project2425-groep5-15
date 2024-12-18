@@ -1,124 +1,186 @@
 /* Algemene stijlen */
 body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  }
-  
-  ul {
-    padding: 0;
-    list-style: none;
-  }
-  
-  button {
-    padding: 0.5rem 1rem;
-    font-weight: bold;
-  }
-  
-  /* Movies Overview Table */
-  .movies-overview-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .table-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 300px;
-  }
-  
-  .fixed-width-table {
-    width: 100%;
-  }
-  
-  .movie-details {
-    width: 100%;
-    margin-top: 20px;
-    font-size: 16px;
-  }
-  
-  .movie-details h2 {
-    font-size: 20px;
-  }
-  
-  .selectedRow {
-    background-color: #f0f0f0;
-  }
-  
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+}
 
-  .content-container {
-    display: flex;
-    justify-content: space-between;
-    width: 60%;
-   
-    margin-top: 20px;
-  }
-  
-  .movies-section {
-    flex: 1;
-    margin-right: 20px;
-  }
-  
-  .form-section {
-    flex: 1;
-    max-width: 400px;
-  }
-  
+ul {
+  padding: 0;
+  list-style: none;
+}
 
-  .add-new-movie-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-  }
-  
-  .add-new-movie-container h2 {
-    font-size: 18px;
-    font-weight: bold;
-  }
-  
-  .form {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
-  
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
-  .form-group label {
-    margin-bottom: 5px;
-    font-weight: bold;
-  }
-  
-  .form-group input,
-  .form-group .react-datepicker-wrapper {
-    padding: 8px;
-    font-size: 16px;
-    width: 100%;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .submit-button {
-    padding: 10px;
-    font-size: 16px;
-    background-color: #f0f0f0;
-    color: black;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 10px;
-  }
-  
-  .submit-button:hover {
-    background-color: #e0e0e0;
-  }
-  
-  .message {
-    margin-top: 15px;
-    font-size: 16px;
-    color: green;
-  }
+button {
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+}
+
+/* Header */
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-link {
+  padding: 0.5rem 1rem;
+  font-size: 1.25rem;
+  color: white;
+  text-decoration: none;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+}
+
+/* Language Component */
+.language {
+  display: flex;
+  align-items: center;
+  margin-left: 1rem;
+}
+
+/* Movies Overview Table */
+.movies-overview-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.table-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 300px; /* Stel een vaste breedte in voor de container */
+}
+
+.fixed-width-table {
+  width: 100%; /* Zorg ervoor dat de tabel de volledige breedte van de container inneemt */
+}
+
+.movie-details {
+  width: 100%; /* Zorg ervoor dat de details dezelfde breedte hebben als de tabel */
+  margin-top: 20px; /* Voeg wat ruimte toe tussen de tabel en de details */
+  font-size: 14px; /* Stel een kleinere lettergrootte in voor de details */
+}
+
+.movie-details h2 {
+  font-size: 18px; /* Stel een kleinere lettergrootte in voor de titel van de details */
+}
+
+.selectedRow {
+  background-color: #f0f0f0; /* Lichte achtergrondkleur voor de geselecteerde rij */
+}
+
+/* Content Container */
+.content-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1200px;
+  margin-top: 20px;
+}
+
+.movies-section {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.form-section {
+  flex: 1;
+  max-width: 400px;
+}
+
+/* Add New Movie Form */
+.add-new-movie-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.add-new-movie-container h2 {
+  font-size: 18px; /* Maak de titel kleiner */
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px; /* Beperk de breedte van het formulier */
+  margin: 0 auto; /* Centreer het formulier */
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-group input,
+.form-group .react-datepicker-wrapper {
+  padding: 8px;
+  font-size: 16px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.submit-button {
+  padding: 10px;
+  font-size: 16px;
+  background-color: #f0f0f0;
+  color: black;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.submit-button:hover {
+  background-color: #e0e0e0;
+}
+
+.message {
+  margin-top: 15px;
+  font-size: 16px;
+  color: green;
+}
+
+/* User Table */
+.user-table-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+
+.table th {
+  background-color: #f0f0f0;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #f5f5f5;
+}

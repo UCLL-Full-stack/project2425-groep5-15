@@ -18,3 +18,20 @@ export type Room = {
     name: string;
     seats: number;
 }   
+
+
+export type StatusMessage = {
+    message: string;
+    type: "error" | "success";
+};
+
+export type User = {
+    token?: any;
+    firstName?: string;
+    lastName?: string;
+    fullname?: string;
+    username?: string;
+    email?: string;
+    password?: string;
+    role?: string;
+};

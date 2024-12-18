@@ -1,24 +1,34 @@
-import { useState, useEffect } from 'react';
-import Head from 'next/head';
 import Link from 'next/link';
-import Header from '@components/header';
+import Header from '@components/headerNoL';
 import MoviesOverviewTable from '@components/movies/MoviesOverviewTable';
 import AddNewMovie from '@components/movies/AddNewMovie';
 import MovieService from '@services/movieService';
-import { Movie } from '@types';
+import { Movie, User } from '@types';
+import Head from 'next/head';
+import useSWR from 'swr';
+import { useEffect, useState } from 'react';
 
-const Home: React.FC = () => {
-  const [movies, setMovies] = useState<Array<Movie>>([]);
-
-  const getMovies = async () => {
-    const response = await MovieService.getAllMovies();
-    const data = await response.json();
-    setMovies(data);
-  };
+const Movies: React.FC = () => {
+  const [loggedInUser, setLoggedInUser] = useState<User | null>(null);
 
   useEffect(() => {
-    getMovies();
+    const user = localStorage.getItem("loggedInUser");
+    if (user) {
+      const parsedUser: User = JSON.parse(user);
+      setLoggedInUser(parsedUser);
+    }
   }, []);
+
+  const fetchMovies = async () => {
+    const response = await MovieService.getAllMovies();
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    }
+    throw new Error('Failed to fetch movies');
+  };
+
+  const { data: movies, error, isLoading } = useSWR('movies', fetchMovies);
 
   return (
     <>
@@ -33,17 +43,21 @@ const Home: React.FC = () => {
         <h1>Discover our movies!</h1>
         <p>Click on a movie to see more details</p>
         <Link href="/shows">Click here to buy a ticket</Link>
-        <div className="content-container">
+        <div className="content-container d-flex justify-content-center">
           <section className="movies-section">
+            {error && <div className="text-red-800">{error.message}</div>}
+            {isLoading && <p className="text-green-800">Loading...</p>}
             {movies && <MoviesOverviewTable movies={movies} />}
           </section>
-          <section className="form-section">
-            <AddNewMovie />
-          </section>
+          {loggedInUser && loggedInUser.role === 'admin' && (
+            <section className="form-section">
+              <AddNewMovie />
+            </section>
+          )}
         </div>
       </main>
     </>
   );
 };
 
-export default Home;
+export default Movies;
