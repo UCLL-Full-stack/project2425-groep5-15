@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import MovieService from '@services/movieService';
-import { Movie } from '@types';
+import { Movie, User } from '@types';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { mutate } from 'swr';
@@ -12,6 +12,15 @@ const AddNewMovie: React.FC = () => {
   const [releaseDate, setReleaseDate] = useState<Date | null>(null);
   const [errors, setErrors] = useState<string[]>([]);
   const [status, setStatus] = useState<string>('');
+  const [loggedInUser, setLoggedInUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    const user = localStorage.getItem("loggedInUser");
+    if (user) {
+      const parsedUser: User = JSON.parse(user);
+      setLoggedInUser(parsedUser);
+    }
+  }, []);
 
   const validate = () => {
     let result = true;
@@ -44,7 +53,7 @@ const AddNewMovie: React.FC = () => {
     }
 
     const newMovie: Movie = {
-      id: Math.floor(Math.random() * 1000),
+      id: Math.floor(Math.random() * 1000), // Generate a random ID for the new movie
       title,
       genres: genres.split(',').map((genre) => genre.trim()),
       duration,
@@ -62,6 +71,7 @@ const AddNewMovie: React.FC = () => {
         setGenres('');
         setDuration(0);
         setReleaseDate(null);
+        // Update the movies list
         mutate('movies', async (movies?: Movie[]) => {
           const updatedMoviesResponse = await MovieService.getAllMovies();
           if (updatedMoviesResponse.ok) {
@@ -75,6 +85,10 @@ const AddNewMovie: React.FC = () => {
       setErrors((errors) => [...errors, 'Failed to add movie.']);
     }
   };
+
+  if (!loggedInUser || loggedInUser.role !== 'admin') {
+    return null; // Hide the form if the user is not logged in or not an admin
+  }
 
   return (
     <div className="add-new-movie-container">

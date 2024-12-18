@@ -44,7 +44,7 @@ const Header: React.FC = () => {
         {loggedInUser && (
           <>
             <span className="nav-link px-4 fs-5 text-white">
-              Welcome, {loggedInUser.firstName}
+              Welcome, {loggedInUser?.fullname?.split(' ')[0]}
             </span>
             <a
               href="/login"

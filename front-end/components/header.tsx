@@ -12,6 +12,7 @@ const Header: React.FC = () => {
     const user = localStorage.getItem("loggedInUser");
     if (user) {
       const parsedUser: User = JSON.parse(user);
+      console.log("Parsed User:", parsedUser); // Debugging line
       setLoggedInUser(parsedUser);
     }
   }, []);
@@ -47,7 +48,7 @@ const Header: React.FC = () => {
         {loggedInUser && (
           <>
             <span className="nav-link px-4 fs-5 text-white">
-              {t('header.welcome')}{loggedInUser.firstName}
+              {t('header.welcome')} {loggedInUser?.fullname?.split(' ')[0]}
             </span>
             <a
               href="/login"

@@ -29,6 +29,7 @@ export type User = {
     token?: any;
     firstName?: string;
     lastName?: string;
+    fullname?: string;
     username?: string;
     email?: string;
     password?: string;
