@@ -6,7 +6,6 @@ import MovieService from '@services/movieService';
 import { Movie } from '@types';
 import Head from 'next/head';
 import useSWR, { mutate } from 'swr';
-import useInterval from 'use-interval';
 
 const Movies: React.FC = () => {
   const fetchMovies = async () => {
@@ -19,10 +18,6 @@ const Movies: React.FC = () => {
   };
 
   const { data: movies, error, isLoading } = useSWR('movies', fetchMovies);
-
-  useInterval(() => {
-    mutate('movies', fetchMovies());
-  }, 1000);
 
   return (
     <>
