@@ -7,10 +7,12 @@ import { set } from 'date-fns';
 const prisma = new PrismaClient();
 
 const main = async () => {
+    await prisma.ticket.deleteMany();
     await prisma.show.deleteMany();
     await prisma.movie.deleteMany();
     await prisma.room.deleteMany();
     await prisma.user.deleteMany();
+    
 
 
     const inception= await prisma.movie.create({
@@ -94,7 +96,61 @@ const main = async () => {
         }
     })
 
+    const testUser = await prisma.user.create({
+        data: {
+            firstName: "Test",
+            lastName: "User",
+            username: "testuser",
+            email: "test.user@gmail.com",
+            password: await bcrypt.hash("testpassword", 12),
+            role: "admin"
+        }
+    })
 
+    const clientUser = await prisma.user.create({
+        data: {
+            firstName: "Client",
+            lastName: "User",
+            username: "clientUser",
+            email: "clientuser@gmail.com",
+            password: await bcrypt.hash("clientPass", 12),
+            role: "client"
+        }
+    })
+
+    const plannerUser = await prisma.user.create({
+        data: {
+            firstName: "Planner",
+            lastName: "User",
+            username: "plannerUser",
+            email: "planneruser@gmail.com",
+            password: await bcrypt.hash("plannerPass", 12),
+            role: "planner"
+        }
+    })
+
+    const adminUser = await prisma.user.create({
+        data: {
+            firstName: "Admin",
+            lastName: "User",
+            username: "adminUser",
+            email: "adminuser@gmail.com",
+            password: await bcrypt.hash("adminPass", 12),
+            role: "admin"
+        }
+    })
+
+    const ticket1 = await prisma.ticket.create({
+        data: {
+            user: {
+                connect: {id: testUser.id}
+            },
+            show: {
+                connect: {id: show1.id}
+            },
+            amount: 3
+        }
+    })
 
 
 
