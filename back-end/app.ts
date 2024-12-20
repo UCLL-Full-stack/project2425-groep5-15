@@ -8,9 +8,12 @@ import {movieRouter} from './controller/movie.routes';
 import {showRouter} from './controller/show.routes';
 import { userRouter } from './controller/user.routes';
 import { expressjwt } from 'express-jwt';
+import { he } from 'date-fns/locale';
+import helmet from 'helmet';
 
 
 const app = express();
+app.use(helmet());
 dotenv.config();
 const port = process.env.APP_PORT || 3000;
 
@@ -19,7 +22,7 @@ app.use(bodyParser.json());
 
 app.use('/shows', showRouter);
 app.use('/users', userRouter);
-app.use('/movies', movieRouter); // als authenticatie in front end is gedaan, dan moeten de routes onder expressjwt komen
+app.use('/movies', movieRouter); 
 
 
 app.use(
