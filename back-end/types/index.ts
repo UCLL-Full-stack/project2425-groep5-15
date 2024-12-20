@@ -19,6 +19,28 @@ type UserInput = {
     role: Role;
 }
 
+type RoomInput = {
+    id?: number;
+    name: string;
+    capacity: number;
+}
+
+type ShowInput = {
+    id?: number;
+    start: Date;
+    end?: Date;
+    movie: MovieInput;
+    room: RoomInput;
+    availableSeats?: number;
+};
+
+type UpdateShowInput = {
+    id: number;
+    start: Date;
+    movieid: number;
+    roomid: number;
+}
+
 type Genre= 'Action' | 'Adventure' | 'Animation' | 'Biography' | 'Comedy' | 'Crime' | 'Drama' | 'Family' | 'Fantasy' | 'History' | 'Horror' | 'Music' | 'Mystery' | 'Romance' | 'Sci-Fi' | 'Sport' | 'Thriller' | 'War' | 'Western';
 
 type AuthenticationResponse = {
@@ -38,4 +60,7 @@ export {
     UserInput,
     AuthenticationResponse,
     Role,
+    ShowInput,
+    RoomInput,
+    UpdateShowInput,
 }

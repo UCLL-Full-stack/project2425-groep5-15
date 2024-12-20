@@ -39,6 +39,7 @@
 
 import express, { NextFunction, Request, Response } from 'express';
 import showService from '../service/show.service';
+import { UpdateShowInput } from '../types';
 
 
 const showRouter = express.Router();
@@ -142,6 +143,63 @@ showRouter.delete('/delete/:id', async (req: Request, res: Response, next: NextF
         const userId = parseInt(req.params.id, 10);
         const result = await showService.deleteShow(userId);
         res.status(200).json(result);
+    } catch (error) {
+        next(error);
+    }
+})
+
+/**
+ * @swagger
+ * /shows/update:
+ *   put:
+ *     security:
+ *      - bearerAuth: []
+ *     summary: Update a show
+ *     tags: [Shows]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               id:
+ *                 type: integer
+ *                 description: The id of the show
+ *               start:
+ *                 type: string
+ *                 format: date-time
+ *                 description: The start time of the show
+ *               movieId:
+ *                 type: integer
+ *                 description: The id of the movie being shown
+ *               roomId:
+ *                 type: integer
+ *                 description: The id of the room where the show is taking place
+ *             required:
+ *               - id
+ *               - start
+ *               - movieId
+ *               - roomId
+ *     responses:
+ *       200:
+ *         description: Show updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Show'
+ *       400:
+ *         description: Invalid input
+ *       404:
+ *         description: Show not found
+ */
+
+
+showRouter.put('/update', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const show = <UpdateShowInput>req.body;
+        const updatedShow = await showService.updateShow(show);
+        res.status(200).json(updatedShow);
     } catch (error) {
         next(error);
     }

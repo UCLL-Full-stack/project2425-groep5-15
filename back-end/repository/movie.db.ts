@@ -82,7 +82,7 @@ const updateMovie = async ({ id, title, releaseDate, duration, genres }: Movie):
 
 const getMovieById = async (id: number): Promise<Movie | null> => {
     try {
-        const moviePrisma = await database.movie.findUnique({
+        const moviePrisma = await database.movie.findFirst({
             where: {
                 id: id
             }
