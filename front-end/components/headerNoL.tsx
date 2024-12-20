@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { useEffect, useState } from "react";
 import { User } from '@types';
+import React from 'react';
 
 const Header: React.FC = () => {
   const [loggedInUser, setLoggedInUser] = useState<User | null>(null);

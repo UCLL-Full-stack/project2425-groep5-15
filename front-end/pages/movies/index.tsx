@@ -7,6 +7,7 @@ import { Movie, User } from '@types';
 import Head from 'next/head';
 import useSWR from 'swr';
 import { useEffect, useState } from 'react';
+import React from 'react';
 
 const Movies: React.FC = () => {
   const [loggedInUser, setLoggedInUser] = useState<User | null>(null);
