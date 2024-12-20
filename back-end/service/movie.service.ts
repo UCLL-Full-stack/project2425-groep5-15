@@ -15,8 +15,21 @@ const addMovie = async ({title, releaseDate, duration, genres }: MovieInput): Pr
 };
 
 
+const deleteMovie = async (id: number): Promise<string> => {
+    if (!id) {
+        throw new Error('Id cannot be empty');
+    }
+    const movie = await movieDB.deleteMovie(id);
+    if (!movie) {
+        throw new Error('Movie with this id does not exist');
+    }
+    return "Movie deleted successfully";
+}
+
+
 
 export default {
     getAllMovies,
     addMovie,
+    deleteMovie,
 }

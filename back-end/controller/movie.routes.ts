@@ -99,4 +99,41 @@ movieRouter.post('/', async (req: Request, res: Response, next: NextFunction) =>
     }
 });
 
+
+/**
+ * @swagger
+ * /movies/delete/{id}:
+ *   delete:
+ *     security:
+ *      - bearerAuth: []
+ *     summary: Delete a movie
+ *     tags: [Movies]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: Numeric ID of the movie to delete
+ *     responses:
+ *       200:
+ *         description: The movie was successfully deleted.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: string
+ */
+
+movieRouter.delete('*delete/:id', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const id = Number(req.params.id);
+        const result = await movieService.deleteMovie(id);
+        res.status(200).json(["This movie was successfully deleted:", result]);
+    } catch (error) {
+        next(error);
+    }
+})
+
 export { movieRouter };
