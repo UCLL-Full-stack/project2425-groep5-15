@@ -9,6 +9,7 @@ type Props = {
 const MoviesOverviewTable: React.FC<Props> = ({ movies }: Props) => {
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
   const [filteredMovies, setFilteredMovies] = useState<Array<Movie>>(movies);
+  const [loggedInUser, setLoggedInUser] = useState<{ role: string } | null>(null);
 
   // Event handler voor het selecteren van een film
   const handleRowClick = (movie: Movie) => {
@@ -31,12 +32,25 @@ const MoviesOverviewTable: React.FC<Props> = ({ movies }: Props) => {
       }
     };
 
+    const user = JSON.parse(localStorage.getItem('loggedInUser') || 'null');
+    setLoggedInUser(user);
+
     if (movies.length === 0) {
       fetchAllMovies(); // Alleen ophalen als er geen films zijn in de props
     } else {
       setFilteredMovies(movies); // Gebruik de films van de props als ze beschikbaar zijn
     }
   }, [movies]); // Zorg ervoor dat de effect wordt uitgevoerd als `movies` verandert
+
+  const handleDeleteMovie = async (movieId: number) => {
+    try {
+      await MovieService.deleteMovie(movieId);
+      setFilteredMovies(filteredMovies.filter(movie => movie.id !== movieId));
+      setSelectedMovie(null);
+    } catch (error) {
+      console.error('Error deleting movie:', error);
+    }
+  };
 
   return (
     <div className="movies-overview-container">
@@ -68,6 +82,9 @@ const MoviesOverviewTable: React.FC<Props> = ({ movies }: Props) => {
                 <div>Genres: {selectedMovie.genres.join(', ')}</div>
                 <div>Release Date: {new Date(selectedMovie.releaseDate).toLocaleDateString()}</div>
                 <div>Duration: {selectedMovie.duration} minutes</div>
+                {loggedInUser?.role === 'admin' && (
+                  <button onClick={() => selectedMovie?.id !== undefined && handleDeleteMovie(selectedMovie.id)}>Delete</button>
+                )}
               </div>
             )}
           </div>

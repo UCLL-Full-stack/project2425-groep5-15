@@ -22,9 +22,8 @@ const Movies: React.FC = () => {
 
   const fetchMovies = async () => {
     const response = await MovieService.getAllMovies();
-    if (response.ok) {
-      const data = await response.json();
-      return data;
+    if (Array.isArray(response)) {
+      return response;
     }
     throw new Error('Failed to fetch movies');
   };

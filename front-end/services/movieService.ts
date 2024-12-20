@@ -27,11 +27,21 @@ const getAllMovies = async () => {
       body: JSON.stringify(movie),
     });
   };
-  
+
+  const deleteMovie = async (movieId: number) => {
+    return fetch(`${process.env.NEXT_PUBLIC_API_URL}/movies/delete/${movieId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    });
+  };
+
   const MovieService = {
     getAllMovies,
     getMoviesByDate,
     addNewMovie,
+    deleteMovie,
   };
   
   export default MovieService;
