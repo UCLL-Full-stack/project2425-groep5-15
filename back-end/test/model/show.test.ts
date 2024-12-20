@@ -25,7 +25,7 @@ const user = new User({
     username: 'myusername',
     email: 'myemail@gmail.com',
     password: 'mypassword',
-    role: 'user'
+    role: 'client'
 });
 
 test('given valid values, when creating a show, then it creates a show with those values', () => {
@@ -41,7 +41,6 @@ test('given valid values, when creating a show, then it creates a show with thos
     expect(show.getEnd()).toEqual(new Date('2026-01-01T14:22:00'));
     expect(show.getMovie()).toEqual(movie);
     expect(show.getRoom()).toEqual(room);
-    expect(show.getVisitors()).toEqual(new Map<User, number>());
 });
 
 
@@ -85,87 +84,5 @@ test('given a show without a room, when creating a show, then it throws an error
     });
     expect(show).toThrow("The show must have a room");
     
-});
-
-test('given a show without visitors, when getting the visitors, then it returns an empty map', () => {
-    const show = new Show({
-        start: new Date('2026-01-01T12:00:00'),
-        movie: movie,
-        room: room
-    });
-
-    expect(show.getVisitors()).toEqual(new Map<User, number>());
-});
-
-test('given a show without visitors, when getting the total number of visitors, then it returns 0', () => {
-    const show = new Show({
-        start: new Date('2026-01-01T12:00:00'),
-        movie: movie,
-        room: room
-    });
-
-    expect(show.getVisitorsTotal()).toEqual(0);
-});
-
-test('given a show with visitors, when getting the visitors, then it returns the visitors', () => {
-    const show = new Show({
-        start: new Date('2026-01-01T12:00:00'),
-        movie: movie,
-        room: room
-    });
-
-    show.addVisitor(user, 2);
-
-    expect(show.getVisitors()).toEqual(new Map([[user, 2]]));
-});
-
-test('given a show with visitors, when getting the total number of visitors, then it returns the total number of visitors', () => {
-    const show = new Show({
-        start: new Date('2026-01-01T12:00:00'),
-        movie: movie,
-        room: room
-    });
-
-    show.addVisitor(user, 2);
-
-    expect(show.getVisitorsTotal()).toEqual(2);
-});
-
-test('given a show with visitors, when getting the remaining seats, then it returns the remaining seats', () => {
-    const show = new Show({
-        start: new Date('2026-01-01T12:00:00'),
-        movie: movie,
-        room: room
-    });
-
-    show.addVisitor(user, 2);
-
-    expect(show.getRemainingSeats()).toEqual(98);
-});
-
-test('given a show with visitors, when adding a visitor with a negative number of seats, then it throws an error', () => {
-    const show = new Show({
-        start: new Date('2026-01-01T12:00:00'),
-        movie: movie,
-        room: room
-    });
-
-    const addvis = () => show.addVisitor(user, -1);
-
-    expect(addvis).toThrow("The number of seats must be greater than 0");
-});
-
-test('given a show with a user adding visitors twice, when getting the visitors, then it returns the map with the user key and the value as the sum of both added seats', () => {
-    const show = new Show({
-        start: new Date('2026-01-01T12:00:00'),
-        movie: movie,
-        room: room
-    });
-
-    show.addVisitor(user, 2);
-    show.addVisitor(user, 3);
-
-    expect(show.getVisitors()).toEqual(new Map([[user, 5]]));
-    expect(show.getVisitorsTotal()).toEqual(5);
 });
 

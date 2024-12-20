@@ -9,7 +9,8 @@ test('given valid values, when creating a user, then it creates a user with thos
         lastName: 'mylastname',
         username: 'myusername',
         email: 'myemail@gmail.com',
-        password: 'mypassword'
+        password: 'mypassword',
+        role: 'client'
     });
 
     expect(user.getId()).toEqual(1);
@@ -18,6 +19,7 @@ test('given valid values, when creating a user, then it creates a user with thos
     expect(user.getUsername()).toEqual('myusername');
     expect(user.getEmail()).toEqual('myemail@gmail.com');
     expect(user.getPassword()).toEqual('mypassword');
+    expect(user.getRole()).toEqual('client');
 });
 
 test('given a user without an id, when getting the id, then it returns undefined', () => {
@@ -26,7 +28,8 @@ test('given a user without an id, when getting the id, then it returns undefined
         lastName: 'mylastname',
         username: 'myusername',
         email: 'myemail@gmail.com',
-        password: 'mypassword'
+        password: 'mypassword',
+        role: 'client'
     });
 
     expect(user.getId()).toBeUndefined();
@@ -39,7 +42,8 @@ test('given a user without a first name, when creating a user, then it throws an
         lastName: 'mylastname',
         username: 'myusername',
         email: 'myemail@gmail.com',
-        password: 'mypassword'
+        password: 'mypassword',
+        role: 'client'
     });
 
     expect(user).toThrow("The user must have a first name");
@@ -51,7 +55,8 @@ test('given a user without a last name, when creating a user, then it throws an 
         lastName: '',
         username: 'myusername',
         email: 'myemail@gmail.com',
-        password: 'mypassword'
+        password: 'mypassword',
+        role: 'client'
     });
 
     expect(user).toThrow("The user must have a last name");
@@ -66,7 +71,9 @@ test('given a user without a username, when creating a user, then it throws an e
         lastName: 'mylastname',
         username: '',
         email: 'myemail@gmail.com',
-        password: 'mypassword'
+        password: 'mypassword',
+        role: 'client'
+
     });
 
     expect(user).toThrow("The user must have a name");
@@ -79,7 +86,8 @@ test('given a user without an email, when creating a user, then it throws an err
         lastName: 'mylastname',
         username: 'myusername',
         email: '',
-        password: 'mypassword'
+        password: 'mypassword',
+        role: 'client'
     });
 
     expect(user).toThrow("The user must have an email");
@@ -92,12 +100,26 @@ test('given a user without a password, when creating a user, then it throws an e
         lastName: 'mylastname',
         username: 'myusername',
         email: 'myemail@gmail.com',
-        password: ''
+        password: '',
+        role: 'client'
     });
 
     expect(user).toThrow("The user must have a password");
 
 });
+
+test('given a user without a role, when creating a user, then it throws an error', () => {
+    const user = () => new User({
+        firstName: 'myFirstname',
+        lastName: 'mylastname',
+        username: 'myusername',
+        email: 'myemail@gmail.com',
+        password: "mypassword",
+        role: null
+    });
+
+    expect(user).toThrow("The user must have a role");
+})
 
 test('given a user with a password shorter than 8 characters, when creating a user, then it throws an error', () => {
     const user = () => new User({
@@ -105,7 +127,8 @@ test('given a user with a password shorter than 8 characters, when creating a us
         lastName: 'mylastname',
         username: 'myusername',
         email: 'myemail@gmail.com',
-        password: 'short'
+        password: 'short',
+        role: 'client'
     });
 
     expect(user).toThrow("The password must have at least 8 characters");
@@ -118,7 +141,8 @@ test('given a user with an invalid email format, when creating a user, then it t
         lastName: 'mylastname',
         username: 'myusername',
         email: 'invalidemail',
-        password: 'mypassword'
+        password: 'mypassword',
+        role: 'client'
     });
 
     expect(user).toThrow("The email format is invalid");
