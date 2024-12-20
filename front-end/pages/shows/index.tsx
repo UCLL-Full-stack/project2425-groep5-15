@@ -10,10 +10,12 @@ const Home: React.FC = () => {
   const [movies, setMovies] = useState<Array<Movie>>([]);
   const [loggedInUser, setLoggedInUser] = useState<User | null>(null);
 
-  const getMovies = async () => {
+  const fetchMovies = async () => {
     const response = await MovieService.getAllMovies();
-    const data = await response.json();
-    setMovies(data);
+    if (Array.isArray(response)) {
+      return response;
+    }
+    throw new Error('Failed to fetch movies');
   };
 
   useEffect(() => {
@@ -21,9 +23,9 @@ const Home: React.FC = () => {
     if (user) {
       const parsedUser: User = JSON.parse(user);
       setLoggedInUser(parsedUser);
-      getMovies();
+      fetchMovies();
     } else {
-      getMovies(); // Fetch movies even if the user is not logged in
+      fetchMovies();
     }
   }, []);
 

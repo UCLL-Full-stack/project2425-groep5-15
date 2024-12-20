@@ -20,11 +20,7 @@ const MoviesOverviewTable: React.FC<Props> = ({ movies }: Props) => {
   useEffect(() => {
     const fetchAllMovies = async () => {
       try {
-        const response = await MovieService.getAllMovies();
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data: Movie[] = await response.json();
+        const data = await MovieService.getAllMovies();
         setFilteredMovies(data); // Stel de gefilterde films in
       } catch (error) {
         // Hier kun je eventueel een foutmelding tonen
@@ -83,7 +79,7 @@ const MoviesOverviewTable: React.FC<Props> = ({ movies }: Props) => {
                 <div>Release Date: {new Date(selectedMovie.releaseDate).toLocaleDateString()}</div>
                 <div>Duration: {selectedMovie.duration} minutes</div>
                 {loggedInUser?.role === 'admin' && (
-                  <button onClick={() => selectedMovie?.id !== undefined && handleDeleteMovie(selectedMovie.id)}>Delete</button>
+                  <button onClick={() => selectedMovie?.id && handleDeleteMovie(selectedMovie.id)}>Delete</button>
                 )}
               </div>
             )}
