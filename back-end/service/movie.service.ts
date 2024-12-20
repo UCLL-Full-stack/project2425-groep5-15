@@ -1,5 +1,7 @@
 import {Movie} from '../model/movie';
+import Show from '../model/show';
 import movieDB from '../repository/movie.db';
+import showDB from '../repository/show.db';
 import { MovieInput } from '../types';
 
 const getAllMovies = async (): Promise<Movie[]> => await movieDB.getAllMovies();
@@ -19,10 +21,12 @@ const deleteMovie = async (id: number): Promise<string> => {
     if (!id) {
         throw new Error('Id cannot be empty');
     }
+    await showDB.deleteShowsByMovieId(id);
     const movie = await movieDB.deleteMovie(id);
     if (!movie) {
         throw new Error('Movie with this id does not exist');
     }
+    
     return "Movie deleted successfully";
 }
 

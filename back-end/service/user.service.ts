@@ -4,6 +4,7 @@ import {AuthenticationResponse, UserInput} from '../types';
 import bcrypt from 'bcrypt';
 import { generateJwtToken } from '../util/jwt';
 import { get } from 'node:http';
+import showDB from '../repository/show.db';
 
 
 const getAllUsers = async (): Promise<User[]> => await userDB.getAllUsers();
@@ -66,16 +67,22 @@ const getUserTicketsById = async (id: number): Promise<User> => {
 
 }
 
-// const addTicketToUser = async (userId: number): Promise<User> => {
-//     if (!userId) {
-//         throw new Error('Id cannot be empty');
-//     }
-//     const response = await userDB.addTicketToUser(userId);
-//     if (!response) {
-//         throw new Error('User with this id does not exist');
-//     }
-//     return response;
-// }
+const addTicketToUser = async (username: string | undefined, showId: number): Promise<User> => {
+    if (!username) {
+        throw new Error('usename cannot be empty');
+    }
+    if (!showId) {
+        throw new Error('Show id cannot be empty');
+    }
+    if (!await userDB.getUserByUsername(username)) {
+        throw new Error('User with this id does not exist');
+    }
+    if (!await showDB.getShowById(showId)) {
+        throw new Error('Show with this id does not exist');
+    }
+    const response = await userDB.addTicketToUser(username, showId );
+    return response;
+}
 
 
 
@@ -86,6 +93,7 @@ export default {
     authenticate,
     getUserTicketsById,
     getUserByUsername,
+    addTicketToUser,
 
 }
 
