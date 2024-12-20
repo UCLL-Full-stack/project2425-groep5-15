@@ -28,7 +28,8 @@ const swaggerOpts = {
 };
 app.use(cors());
 app.use(bodyParser.json());
-
+app.use('/shows', showRouter);
+app.use('/users', userRouter);
 app.use('/movies', movieRouter); 
 app.use(
     expressjwt({ 
@@ -39,8 +40,7 @@ app.use(
     })
 )
 
-app.use('/shows', showRouter);
-app.use('/users', userRouter);
+
 
 
 
