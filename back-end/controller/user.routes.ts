@@ -149,6 +149,62 @@ userRouter.post('/login', async (req: Request, res: Response, next: NextFunction
     }
 })
 
+/**
+ * @swagger
+ * /users/tickets/{id}:
+ *   get:
+ *     summary: Get user tickets by user ID
+ *     tags: [Users]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: The user ID
+ *     responses:
+ *       200:
+ *         description: A list of tickets for the user.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   ticketId:
+ *                     type: integer
+ *                   eventName:
+ *                     type: string
+ *                   date:
+ *                     type: string
+ *                     format: date-time
+ */
+
+userRouter.get('/tickets/:id', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const userId = parseInt(req.params.id, 10);
+        const tickets = await userService.getUserTicketsById(userId);
+        res.status(200).json(tickets);
+    } catch (error) {
+        next(error);
+    }
+});
+
+
+// userRouter.put('/tickets', async (req: Request, res: Response, next: NextFunction) => {
+//     try {
+//         const {username} = req.auth;
+//         const {showId, quantity } = req.body;   
+//         const result = await userService.addTickets(userId, showId, quantity);
+//         res.status(200).json(result);
+//     } catch (error) {
+//         next(error);
+//     }
+
+// });
+
+
 
 
 export { userRouter };

@@ -45,10 +45,31 @@ const getShowById = async (id: number): Promise<Show | null> => {
 
 };
 
+
+const deleteShow = async (id: number): Promise<Show | null> => {
+  try {
+    const showPrisma = await database.show.delete({
+      where: {
+        id: id,
+      },
+      include: {
+        movie: true,
+        room: true,
+      },
+    });
+    return showPrisma ? Show.from(showPrisma) : null;
+  }
+  catch (error) {
+    console.error(error);
+    throw new Error('Database error. See server log for details.');
+  }
+}
+
   
 
 
 export default {
     getAllShows,
     getShowById,
+    deleteShow,
 };

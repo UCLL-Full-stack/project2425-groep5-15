@@ -112,6 +112,42 @@ showRouter.get('/:date', async (req: Request, res: Response, next: NextFunction)
 });
 
 
+/**
+ * @swagger
+ * /shows/delete/{id}:
+ *   delete:
+ *     security:
+ *      - bearerAuth: []
+ *     summary: Delete a show by id
+ *     tags: [Shows]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: The id of the show to delete
+ *     responses:
+ *       200:
+ *         description: Show deleted successfully
+ *       400:
+ *         description: Invalid show id
+ *       404:
+ *         description: Show not found
+ */
+
+
+showRouter.delete('/delete/:id', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const userId = parseInt(req.params.id, 10);
+        const result = await showService.deleteShow(userId);
+        res.status(200).json(result);
+    } catch (error) {
+        next(error);
+    }
+})
+
+
 export { showRouter };
 
 
