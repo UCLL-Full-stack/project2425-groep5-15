@@ -13,7 +13,7 @@ const Header: React.FC = () => {
     const user = localStorage.getItem("loggedInUser");
     if (user) {
       const parsedUser: User = JSON.parse(user);
-      console.log("Parsed User:", parsedUser); // Debugging line
+      console.log("Parsed User:", parsedUser); // Debug
       setLoggedInUser(parsedUser);
     }
   }, []);
