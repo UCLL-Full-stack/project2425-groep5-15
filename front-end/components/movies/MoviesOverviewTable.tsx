@@ -10,10 +10,12 @@ const MoviesOverviewTable: React.FC<Props> = ({ movies }: Props) => {
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
   const [filteredMovies, setFilteredMovies] = useState<Array<Movie>>(movies);
 
+  // Event handler voor het selecteren van een film
   const handleRowClick = (movie: Movie) => {
     setSelectedMovie(movie === selectedMovie ? null : movie);
   };
 
+  // Ophalen van films via MovieService
   useEffect(() => {
     const fetchAllMovies = async () => {
       try {
@@ -22,14 +24,19 @@ const MoviesOverviewTable: React.FC<Props> = ({ movies }: Props) => {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data: Movie[] = await response.json();
-        setFilteredMovies(data);
+        setFilteredMovies(data); // Stel de gefilterde films in
       } catch (error) {
-  
+        // Hier kun je eventueel een foutmelding tonen
+        console.error('Error fetching movies:', error);
       }
     };
 
-    fetchAllMovies();
-  }, []);
+    if (movies.length === 0) {
+      fetchAllMovies(); // Alleen ophalen als er geen films zijn in de props
+    } else {
+      setFilteredMovies(movies); // Gebruik de films van de props als ze beschikbaar zijn
+    }
+  }, [movies]); // Zorg ervoor dat de effect wordt uitgevoerd als `movies` verandert
 
   return (
     <div className="movies-overview-container">
