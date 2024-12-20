@@ -196,9 +196,10 @@ userRouter.get('/tickets/:id', async (req: Request, res: Response, next: NextFun
 // const {username} = request.auth;
 
 
-// userRouter.put('/tickets', async (req: Request, res: Response, next: NextFunction) => {
+// userRouter.put('/tickets', async (req: Request & {auth: UserInput}, res: Response, next: NextFunction) => {
 //     try {
-//         const setupdata = await userService.getUserByUsername(username);
+//         // const setupdata = await userService.getUserByUsername(username);
+//         const username = req.auth.username;
 //         const {showId} = req.body;   
 //         const result = await userService.addTickets(setupdata.id, showId);
 //         res.status(200).json(result);
