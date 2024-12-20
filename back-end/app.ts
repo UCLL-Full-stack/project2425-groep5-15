@@ -29,7 +29,7 @@ const swaggerOpts = {
 app.use(cors());
 app.use(bodyParser.json());
 
-
+app.use('/movies', movieRouter); 
 app.use(
     expressjwt({ 
         secret: process.env.JWT_SECRET || 'default_secret', 
@@ -41,7 +41,7 @@ app.use(
 
 app.use('/shows', showRouter);
 app.use('/users', userRouter);
-app.use('/movies', movieRouter); 
+
 
 
 // hier komen de routes
