@@ -65,6 +65,37 @@ const deleteShow = async (id: number): Promise<Show | null> => {
   }
 }
 
+const getShowsByMovieId = async (movieId: number): Promise<Show[]> => {
+  try {
+    const showPrisma = await database.show.findMany({
+      where: {
+        movieId: movieId,
+      },
+      include: {
+        movie: true,
+        room: true,
+      },
+    });
+    return showPrisma.map((showPrisma) => Show.from(showPrisma));
+  } catch (error) {
+    console.error(error);
+    throw new Error('Database error. See server log for details.');
+  }
+}
+
+const deleteShowsByMovieId = async (movieId: number): Promise<void> => {
+  try {
+    await database.show.deleteMany({
+      where: {
+        movieId: movieId,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    throw new Error('Database error. See server log for details.');
+  }
+}
+
   
 
 
@@ -72,4 +103,7 @@ export default {
     getAllShows,
     getShowById,
     deleteShow,
+    getShowsByMovieId,
+    deleteShowsByMovieId
+
 };

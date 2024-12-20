@@ -195,13 +195,39 @@ userRouter.get('/tickets/:id', async (req: Request, res: Response, next: NextFun
 // const request = req as Request & {auth: {username: string}};
 // const {username} = request.auth;
 
+/**
+ * @swagger
+ * /users/tickets:
+ *   put:
+ *     summary: Add a ticket to a user
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               showId:
+ *                 type: integer
+ *             required:
+ *               - showId
+ *     responses:
+ *       200:
+ *         description: The ticket was successfully added to the user.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+    */          
 
-// userRouter.put('/tickets', async (req: Request & {auth: UserInput}, res: Response, next: NextFunction) => {
+// userRouter.put('/tickets', async (req: Request & { auth: any}, res: Response, next: NextFunction) => {
 //     try {
-//         // const setupdata = await userService.getUserByUsername(username);
-//         const username = req.auth.username;
+//         const {username} = req.auth;
 //         const {showId} = req.body;   
-//         const result = await userService.addTickets(setupdata.id, showId);
+//         const result = await userService.addTicketToUser(username, showId);
 //         res.status(200).json(result);
 //     } catch (error) {
 //         next(error);

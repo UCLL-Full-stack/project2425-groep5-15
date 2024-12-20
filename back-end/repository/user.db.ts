@@ -99,11 +99,52 @@ const getUserTicketsById = async (id: number): Promise<User | null> => {
     }
 }
 
+const getUserById = async (id: number): Promise<User | null> => {
+    try {
+        const userPrisma = await database.user.findFirst({
+            where: {
+                id: id
+            }
+        });
+        return userPrisma ? User.from(userPrisma) : null;
+    }
+    catch (error) {
+        console.error(error);
+        throw new Error('Database error. See server log for details.');
+    }
+}
+
+const addTicketToUser = async (username: string, showId: number): Promise<User> => {
+    try {
+        const updatedUser = await database.user.update({
+            where: { username: username },
+            data: {
+                tickets: {
+                    connect: { id: showId }
+                }
+            },
+            include: {
+                tickets: {
+                    include: {
+                        movie: true,
+                        room: true
+                    }
+                }
+            }
+        });
+        return User.from(updatedUser);
+    } catch (error) {
+        console.error(error);
+        throw new Error('Database error. See server log for details.');
+    }
+}
 
 export default {
     getAllUsers,
     createUser,
     getUserByEmail,
     getUserByUsername,
-    getUserTicketsById
+    getUserTicketsById,
+    addTicketToUser,
+    getUserById,
 }
