@@ -66,6 +66,17 @@ const getUserTicketsById = async (id: number): Promise<User> => {
 
 }
 
+// const addTicketToUser = async (userId: number): Promise<User> => {
+//     if (!userId) {
+//         throw new Error('Id cannot be empty');
+//     }
+//     const response = await userDB.addTicketToUser(userId);
+//     if (!response) {
+//         throw new Error('User with this id does not exist');
+//     }
+//     return response;
+// }
+
 
 
 
@@ -74,6 +85,7 @@ export default {
     createUser,
     authenticate,
     getUserTicketsById,
+    getUserByUsername,
 
 }
 

@@ -1,6 +1,7 @@
 import express, { NextFunction, Request, Response } from 'express';
 import userService from '../service/user.service';
 import { UserInput } from '../types';
+import { request } from 'node:http';
 
 /**
  * @swagger
@@ -191,12 +192,15 @@ userRouter.get('/tickets/:id', async (req: Request, res: Response, next: NextFun
     }
 });
 
+// const request = req as Request & {auth: {username: string}};
+// const {username} = request.auth;
+
 
 // userRouter.put('/tickets', async (req: Request, res: Response, next: NextFunction) => {
 //     try {
-//         const {username} = req.auth;
-//         const {showId, quantity } = req.body;   
-//         const result = await userService.addTickets(userId, showId, quantity);
+//         const setupdata = await userService.getUserByUsername(username);
+//         const {showId} = req.body;   
+//         const result = await userService.addTickets(setupdata.id, showId);
 //         res.status(200).json(result);
 //     } catch (error) {
 //         next(error);

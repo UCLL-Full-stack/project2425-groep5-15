@@ -43,8 +43,24 @@ const addMovie = async ({title, releaseDate, duration, genres }: Movie): Promise
     }
 };
 
+const deleteMovie = async (id: number): Promise<Movie | null> => {
+    try {
+        const moviePrisma = await database.movie.delete({
+            where: {
+                id: id
+            }
+        });
+        return moviePrisma ? Movie.from(moviePrisma) : null;
+    }
+    catch (error) {
+        console.error(error);
+        throw new Error('Database error. See server log for details.');
+    }
+}
+
 export default{
     getAllMovies,
     getMovieByTitleAndReleaseDate,
     addMovie,
+    deleteMovie,
 };
