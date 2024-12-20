@@ -11,19 +11,19 @@ const MoviesOverviewTable: React.FC<Props> = ({ movies }: Props) => {
   const [filteredMovies, setFilteredMovies] = useState<Array<Movie>>(movies);
   const [loggedInUser, setLoggedInUser] = useState<{ role: string } | null>(null);
 
-  // Event handler voor het selecteren van een film
+ 
   const handleRowClick = (movie: Movie) => {
     setSelectedMovie(movie === selectedMovie ? null : movie);
   };
 
-  // Ophalen van films via MovieService
+  
   useEffect(() => {
     const fetchAllMovies = async () => {
       try {
         const data = await MovieService.getAllMovies();
-        setFilteredMovies(data); // Stel de gefilterde films in
+        setFilteredMovies(data); 
       } catch (error) {
-        // Hier kun je eventueel een foutmelding tonen
+        
         console.error('Error fetching movies:', error);
       }
     };
@@ -32,11 +32,11 @@ const MoviesOverviewTable: React.FC<Props> = ({ movies }: Props) => {
     setLoggedInUser(user);
 
     if (movies.length === 0) {
-      fetchAllMovies(); // Alleen ophalen als er geen films zijn in de props
+      fetchAllMovies(); 
     } else {
-      setFilteredMovies(movies); // Gebruik de films van de props als ze beschikbaar zijn
+      setFilteredMovies(movies);
     }
-  }, [movies]); // Zorg ervoor dat de effect wordt uitgevoerd als `movies` verandert
+  }, [movies]); 
 
   const handleDeleteMovie = async (movieId: number) => {
     try {

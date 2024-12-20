@@ -1,4 +1,3 @@
-/* Algemene stijlen */
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -14,7 +13,6 @@ button {
   font-weight: bold;
 }
 
-/* Header */
 header {
   display: flex;
   flex-direction: column;
@@ -38,14 +36,12 @@ header {
   text-decoration: underline;
 }
 
-/* Language Component */
 .language {
   display: flex;
   align-items: center;
   margin-left: 1rem;
 }
 
-/* Movies Overview Table */
 .movies-overview-container {
   display: flex;
   flex-direction: column;
@@ -56,28 +52,27 @@ header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 300px; /* Stel een vaste breedte in voor de container */
+  width: 300px;
 }
 
 .fixed-width-table {
-  width: 100%; /* Zorg ervoor dat de tabel de volledige breedte van de container inneemt */
+  width: 100%;
 }
 
 .movie-details {
-  width: 100%; /* Zorg ervoor dat de details dezelfde breedte hebben als de tabel */
-  margin-top: 20px; /* Voeg wat ruimte toe tussen de tabel en de details */
-  font-size: 14px; /* Stel een kleinere lettergrootte in voor de details */
+  width: 100%;
+  margin-top: 20px;
+  font-size: 14px;
 }
 
 .movie-details h2 {
-  font-size: 18px; /* Stel een kleinere lettergrootte in voor de titel van de details */
+  font-size: 18px;
 }
 
 .selectedRow {
-  background-color: #f0f0f0; /* Lichte achtergrondkleur voor de geselecteerde rij */
+  background-color: #f0f0f0;
 }
 
-/* Content Container */
 .content-container {
   display: flex;
   justify-content: space-between;
@@ -96,7 +91,6 @@ header {
   max-width: 400px;
 }
 
-/* Add New Movie Form */
 .add-new-movie-container {
   display: flex;
   flex-direction: column;
@@ -105,15 +99,15 @@ header {
 }
 
 .add-new-movie-container h2 {
-  font-size: 18px; /* Maak de titel kleiner */
+  font-size: 18px;
 }
 
 .form {
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 400px; /* Beperk de breedte van het formulier */
-  margin: 0 auto; /* Centreer het formulier */
+  max-width: 400px;
+  margin: 0 auto;
 }
 
 .form-group {
@@ -155,7 +149,6 @@ header {
   color: green;
 }
 
-/* User Table */
 .user-table-container {
   display: flex;
   flex-direction: column;
