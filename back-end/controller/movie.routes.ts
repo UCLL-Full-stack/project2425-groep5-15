@@ -126,7 +126,7 @@ movieRouter.post('/', async (req: Request, res: Response, next: NextFunction) =>
  *                 type: string
  */
 
-movieRouter.delete('*delete/:id', async (req: Request, res: Response, next: NextFunction) => {
+movieRouter.delete('/delete/:id', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const id = Number(req.params.id);
         const result = await movieService.deleteMovie(id);
@@ -135,5 +135,42 @@ movieRouter.delete('*delete/:id', async (req: Request, res: Response, next: Next
         next(error);
     }
 })
+
+/**
+ * @swagger
+ * /movies/update:
+ *   put:
+ *     security:
+ *      - bearerAuth: []
+ *     summary: Update a movie
+ *     tags: [Movies]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Movie'
+ *     responses:
+ *       200:
+ *         description: The movie was successfully updated.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: string
+ */
+movieRouter.put('/update', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const movie = <MovieInput>req.body;
+        const result = await movieService.updateMovie(movie);
+        res.status(200).json(["This movie was successfully updated:", result]);
+    } catch (error) {
+        next(error);
+    }
+})
+
+
+
 
 export { movieRouter };

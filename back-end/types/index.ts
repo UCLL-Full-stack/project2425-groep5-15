@@ -28,6 +28,7 @@ type AuthenticationResponse = {
     role: string;
 }
 
+
 type Role = 'admin' | 'client' | 'planner';
 
 export {
