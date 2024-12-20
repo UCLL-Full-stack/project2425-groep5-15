@@ -4,6 +4,7 @@ import MoviesOverviewTable from '@components/movies/MoviesOverviewTable';
 import { Movie, User } from '@types';
 import { useState, useEffect } from 'react';
 import MovieService from '@services/movieService';
+import React from 'react';
 
 const Home: React.FC = () => {
   const [movies, setMovies] = useState<Array<Movie>>([]);

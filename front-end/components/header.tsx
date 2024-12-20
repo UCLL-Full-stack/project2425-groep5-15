@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import React from 'react';
 import { useEffect, useState } from "react";
 import { useTranslation } from 'next-i18next';
 import Language from './language/Language';
