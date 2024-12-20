@@ -179,8 +179,8 @@ showRouter.delete('/delete/:id', async (req: Request, res: Response, next: NextF
  *             required:
  *               - id
  *               - start
- *               - movieId
- *               - roomId
+ *               - movieid
+ *               - roomid
  *     responses:
  *       200:
  *         description: Show updated successfully
