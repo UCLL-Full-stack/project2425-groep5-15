@@ -13,7 +13,7 @@ export class Show {
     readonly end: Date;
     readonly movie: Movie;
     readonly room: Room;
-    private availableSeats: number;
+    public availableSeats: number;
 
     constructor(show: {id?: number, start: Date, end?: Date, movie: Movie, room: Room, availableSeats?: number}) {
         this.validate(show);

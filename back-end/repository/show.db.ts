@@ -96,6 +96,35 @@ const deleteShowsByMovieId = async (movieId: number): Promise<void> => {
   }
 }
 
+const updateShow = async ({id, start, end, movie, room, availableSeats}: Show): Promise<Show> => {
+  try {
+    const showPrisma = await database.show.update({
+      where: {
+        id: id,
+      },
+      data: {
+        start: start,
+        end: end,
+        movie: {
+          connect: { id: movie.id },
+        },
+        room: {
+          connect: { id: room.id },
+        },
+      
+      },
+      include: {
+        movie: true,
+        room: true,
+      },
+    });
+    return Show.from(showPrisma);
+  } catch (error) {
+    console.error(error);
+    throw new Error('Database error. See server log for details.');
+  }
+}
+
   
 
 
@@ -104,6 +133,7 @@ export default {
     getShowById,
     deleteShow,
     getShowsByMovieId,
-    deleteShowsByMovieId
+    deleteShowsByMovieId,
+    updateShow,
 
 };

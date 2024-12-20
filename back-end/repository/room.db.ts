@@ -13,6 +13,23 @@ const getAllRooms = async (): Promise<Room[]> => {
     }
 }
 
+const getRoomById = async (id: number): Promise<Room | null> => {
+    try {
+        const roomPrisma = await database.room.findUnique({
+            where: {
+                id: id,
+            },
+        });
+        return roomPrisma ? Room.from(roomPrisma) : null;
+    }
+    catch (error) {
+        console.error(error);
+        throw new Error('Database error. See server log for details.');
+    }
+}
+
+
 export default {
     getAllRooms,
+    getRoomById,
 };

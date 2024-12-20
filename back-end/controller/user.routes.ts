@@ -1,7 +1,7 @@
 import express, { NextFunction, Request, Response } from 'express';
 import userService from '../service/user.service';
 import { UserInput } from '../types';
-import { request } from 'node:http';
+
 
 /**
  * @swagger
@@ -82,6 +82,8 @@ userRouter.get('/', async (req: Request, res: Response, next: NextFunction) => {
  *   post:
  *     summary: Add a user
  *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -115,6 +117,8 @@ userRouter.post('/signup', async (req: Request, res: Response, next: NextFunctio
  *   post:
  *     summary: Log in a user
  *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -156,6 +160,8 @@ userRouter.post('/login', async (req: Request, res: Response, next: NextFunction
  *   get:
  *     summary: Get user tickets by user ID
  *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -223,17 +229,17 @@ userRouter.get('/tickets/:id', async (req: Request, res: Response, next: NextFun
  *               $ref: '#/components/schemas/User'
     */          
 
-// userRouter.put('/tickets', async (req: Request & { auth: any}, res: Response, next: NextFunction) => {
-//     try {
-//         const {username} = req.auth;
-//         const {showId} = req.body;   
-//         const result = await userService.addTicketToUser(username, showId);
-//         res.status(200).json(result);
-//     } catch (error) {
-//         next(error);
-//     }
+userRouter.put('/tickets', async (req: Request & {auth: any} , res: Response, next: NextFunction) => {
+    try {
+        const {username} = req.auth;
+        const { showId } = req.body;   
+        const result = await userService.addTicketToUser(username, showId);
+        res.status(200).json(result);
+    } catch (error) {
+        next(error);
+    }
+});
 
-// });
 
 
 

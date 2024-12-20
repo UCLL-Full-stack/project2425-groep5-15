@@ -16,13 +16,18 @@ const app = express();
 app.use(helmet());
 dotenv.config();
 const port = process.env.APP_PORT || 3000;
-
+const swaggerOpts = {
+    definition: {
+        openapi: '3.0.0',
+        info: {
+            title: 'Courses API',
+            version: '1.0.0',
+        },
+    },
+    apis: ['./controller/*.routes.ts'],
+};
 app.use(cors());
 app.use(bodyParser.json());
-
-app.use('/shows', showRouter);
-app.use('/users', userRouter);
-app.use('/movies', movieRouter); 
 
 
 app.use(
@@ -34,6 +39,10 @@ app.use(
     })
 )
 
+app.use('/shows', showRouter);
+app.use('/users', userRouter);
+app.use('/movies', movieRouter); 
+
 
 // hier komen de routes
 app.get('/status', (req, res) => {
@@ -42,25 +51,16 @@ app.get('/status', (req, res) => {
 app.listen(port || 3000, () => {
     console.log(`Back-end is running on port ${port}.`);
 });
-const swaggerOpts = {
-    definition: {
-        openapi: '3.0.0',
-        info: {
-            title: 'Courses API',
-            version: '1.0.0',
-        },
-    },
-    apis: ['./controller/*.routes.ts'],
-};
+
 const swaggerSpec = swaggerJSDoc(swaggerOpts);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-    console.error(err);
-    res.status(400).json({
-        status: 'application error',
-        message: err.message,
-    });
+    if (err.name === 'UnauthorizedError') {
+        res.status(401).json({ status: 'unauthorized', message: err.message });
+    }else {
+        res.status(400).json({ status: 'application error', message: err.message });
+    }
 });
 
