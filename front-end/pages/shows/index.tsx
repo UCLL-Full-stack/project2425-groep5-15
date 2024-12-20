@@ -1,61 +1,47 @@
+import React, { useState } from 'react';
 import Head from 'next/head';
-import Header from '@components/headerNoL';
-import MoviesOverviewTable from '@components/movies/MoviesOverviewTable';
-import { Movie, User } from '@types';
-import { useState, useEffect } from 'react';
-import MovieService from '@services/movieService';
-import React from 'react';
+import HeaderNoL from '@components/headerNoL';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import { useRouter } from 'next/router';
 
-const Home: React.FC = () => {
-  const [movies, setMovies] = useState<Array<Movie>>([]);
-  const [loggedInUser, setLoggedInUser] = useState<User | null>(null);
+const ShowsPage: React.FC = () => {
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const router = useRouter();
 
-  const fetchMovies = async () => {
-    const response = await MovieService.getAllMovies();
-    if (Array.isArray(response)) {
-      return response;
+  const handleDateChange = (date: Date | null) => {
+    setSelectedDate(date);
+    if (date) {
+      const adjustedDate = new Date(date);
+      adjustedDate.setDate(adjustedDate.getDate() + 1);
+      const formattedDate = adjustedDate.toISOString().split('T')[0];
+      router.push(`/shows/${formattedDate}`);
     }
-    throw new Error('Failed to fetch movies');
   };
-
-  useEffect(() => {
-    const user = localStorage.getItem("loggedInUser");
-    if (user) {
-      const parsedUser: User = JSON.parse(user);
-      setLoggedInUser(parsedUser);
-      fetchMovies();
-    } else {
-      fetchMovies();
-    }
-  }, []);
 
   return (
     <>
       <Head>
         <title>Shows - Cinematic</title>
-        <meta name="description" content="Movies app" />
+        <meta name="description" content="Shows page" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Header />
+      <HeaderNoL />
       <main className="d-flex flex-column justify-content-center align-items-center">
-        {!loggedInUser ? (
-          <div className="d-flex flex-column justify-content-center align-items-center">
-            <h1>Unauthorized</h1>
-            <p>You must be logged in to view this page.</p>
-          </div>
-        ) : (
-          <>
-            <h1>Discover our shows and buy your tickets!</h1>
-            <p>Click on a movie to see available shows</p>
-            <section>
-              {movies && <MoviesOverviewTable movies={movies} />}
-            </section>
-          </>
-        )}
+        <a>Click on a date to see the planned shows</a>
+        <a>For testen: there are shows plannen on 30/12/2024 and 31/12/2024</a>
+        <div className="date-picker-container">
+          <DatePicker
+            selected={selectedDate}
+            onChange={handleDateChange}
+            dateFormat="yyyy-MM-dd"
+            placeholderText="Select a date"
+          />
+        </div>
       </main>
     </>
   );
 };
 
-export default Home;
+export default ShowsPage;

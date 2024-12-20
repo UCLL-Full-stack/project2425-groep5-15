@@ -42,7 +42,7 @@ const Movies: React.FC = () => {
       <main className="d-flex flex-column justify-content-center align-items-center">
         <h1>Discover our movies!</h1>
         <p>Click on a movie to see more details</p>
-        <Link href="/shows">Click here to buy a ticket</Link>
+        <Link href="/shows">Click here to see our shows</Link>
         <div className="content-container d-flex justify-content-center">
           <section className="movies-section">
             {error && <div className="text-red-800">{error.message}</div>}

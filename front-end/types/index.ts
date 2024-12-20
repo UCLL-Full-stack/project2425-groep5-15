@@ -4,34 +4,30 @@ export type Movie = {
     releaseDate: Date;
     duration: number;
     genres: string[];
-};
-
-export type Show= {
-    id?: number;
-    start: Date;
+  };
+  
+  export type Show = {
+    id: number;
+    start: string;
+    end: string;
     movie: Movie;
     room: Room;
-}
-
-export type Room = {
+    availableSeats: number;
+  };
+  
+  export type Room = {
     id?: number;
-    name: string;
-    seats: number;
-}   
-
-
-export type StatusMessage = {
+    capacity: number;
+  };
+  
+  export type StatusMessage = {
     message: string;
     type: "error" | "success";
-};
-
-export type User = {
+  };
+  
+  export type User = {
     token?: any;
-    firstName?: string;
-    lastName?: string;
     fullname?: string;
     username?: string;
-    email?: string;
-    password?: string;
     role?: string;
-};
+  };
