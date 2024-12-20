@@ -54,6 +54,18 @@ const authenticate = async ({username, password}: UserInput): Promise<Authentica
 
 }
 
+const getUserTicketsById = async (id: number): Promise<User> => {
+    if (!id) {
+        throw new Error('Id cannot be empty');
+    }
+    const response = await userDB.getUserTicketsById(id);
+    if (!response) {
+        throw new Error('User with this id does not exist');
+    }
+    return response;
+
+}
+
 
 
 
@@ -61,5 +73,7 @@ export default {
     getAllUsers,
     createUser,
     authenticate,
+    getUserTicketsById,
+
 }
 

@@ -22,8 +22,18 @@ const getShowById = async (id: number): Promise<Show> => {
     return show;
 }
 
+
+const deleteShow = async (id: number): Promise<string> => {
+    const show = await showDB.deleteShow(id);
+    if (!show) {
+        throw new Error('Show with this id does not exist');
+    }
+    return "Show deleted successfully";
+}
+
 export default {
     getAllShows,
     getShowsByDate,
     getShowById,
+    deleteShow,
 };

@@ -102,9 +102,14 @@ const main = async () => {
             username: "testuser",
             email: "test.user@gmail.com",
             password: await bcrypt.hash("testpassword", 12),
-            role: "admin"
+            role: "admin",
+            tickets: {
+                connect: [{id: show1.id}, {id: show1.id}, {id: show2.id}]
+            }
         }
     })
+
+    
 
     
 
