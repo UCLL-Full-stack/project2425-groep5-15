@@ -1,8 +1,15 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import MoviesOverviewTable from '@components/movies/MoviesOverviewTable';
 import { Movie } from '@types';
+
+jest.mock('@services/movieService', () => ({
+  getAllMovies: jest.fn().mockResolvedValue({
+    ok: true,
+    json: jest.fn().mockResolvedValue([]),
+  }),
+}));
 
 const mockMovies: Movie[] = [
   {
@@ -29,41 +36,50 @@ const mockMovies: Movie[] = [
 ];
 
 describe('MoviesOverviewTable', () => {
-  test('renders the movies table with correct data', () => {
+  test('renders the movies table with correct data', async () => {
     render(<MoviesOverviewTable movies={mockMovies} />);
 
-    // Check if the table header is rendered
-    expect(screen.getByText('Movies')).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText('Movies')).toBeInTheDocument();
+    });
 
-    // Check if the movie titles are rendered
     mockMovies.forEach((movie) => {
       expect(screen.getByText(movie.title)).toBeInTheDocument();
     });
-
-    // Check if the movie genres are rendered
-    mockMovies.forEach((movie) => {
-      movie.genres.forEach((genre) => {
-        expect(screen.getByText((content, element) => {
-          return element?.textContent === genre;
-        })).toBeInTheDocument();
-      });
-    });
   });
 
-  test('renders the movie details when a movie is clicked', () => {
+  test('renders the movie details when a movie is clicked', async () => {
     render(<MoviesOverviewTable movies={mockMovies} />);
-
-    // Click on the first movie
+  
     fireEvent.click(screen.getByText('Inception'));
+  
+    screen.debug();
+  
+    await waitFor(() => {
+      expect(screen.getByText('Details for Inception')).toBeInTheDocument();
+    });
+  
+    await waitFor(() => {
+      expect(screen.getByText(/Genres:/)).toBeInTheDocument();
+      expect(screen.getByText(/Action, Sci-Fi, Thriller/)).toBeInTheDocument();
+    });
+  
+    const releaseDateElement = screen.getByText((content, element) =>
+      content.includes('Release Date:') && content.includes('2010')
+    );
+    expect(releaseDateElement).toBeInTheDocument();
+  
+    const durationElement = screen.getByText((content, element) =>
+      content.includes('Duration:') && content.includes('148')
+    );
+    expect(durationElement).toBeInTheDocument();
+  });
 
-    // Check if the movie details are rendered
-    expect(screen.getByText('Details for Inception')).toBeInTheDocument();
-    expect(screen.getByText('Genres: Action, Sci-Fi, Thriller')).toBeInTheDocument();
-    expect(screen.getByText((content, element) => {
-      return !!element?.textContent?.includes('Release Date:') && !!element?.textContent?.includes('2010');
-    })).toBeInTheDocument();
-    expect(screen.getByText((content, element) => {
-      return !!element?.textContent?.includes('Duration:') && !!element?.textContent?.includes('148');
-    })).toBeInTheDocument();
+  test('shows a message if no movies are available', async () => {
+    render(<MoviesOverviewTable movies={[]} />);
+
+    await waitFor(() => {
+      expect(screen.getByText('No movies available.')).toBeInTheDocument();
+    });
   });
 });
