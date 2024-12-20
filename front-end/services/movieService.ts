@@ -25,7 +25,7 @@ const addNewMovie = async (movie: Movie) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(movie),
-  }).then(response => response.json());
+  });
 };
 
 const deleteMovie = async (movieId: number) => {
